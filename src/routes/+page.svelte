@@ -10,10 +10,11 @@
 	import ListEmployee from '../components/Home/ListEmployee.svelte';
 	import ModifyEmployee from '../components/Home/ModifyEmployee.svelte';
 	import RemoveEmployee from '../components/Home/RemoveEmployee.svelte';
-	import SearchEmployee from '../components/Home/SearchEmployee.svelte';
+	import SearchWorker from '../components/Home/SearchWorker.svelte';
 	import add_icon from '$lib/images/add_circle.svg';
 	import search_icon from '$lib/images/search.svg';
 	import edit_icon from '$lib/images/edit_alt.svg';
+	
 
 	const manageCompanies = () => {
 		goto('/company');
@@ -53,7 +54,7 @@
 	</div>
 {:else if image === false}
 	<div class="fixed hidden justify-center top-[0] right-[0] bottom-[0] left-[0] z-[10] duration-300" style="display: {$employeeView ? 'flex' : 'none'}; background: rgba(0, 0, 0, 0.3);">
-		<SearchEmployee />
+		<SearchWorker />
 
 		<AddEmployee />
 

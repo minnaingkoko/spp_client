@@ -25,7 +25,7 @@
 </script>
 
 {#if employee}
-	<div class="add-form absolute top-[30px] w-[400px] bg-white z-[12] rounded-[4px]" style="display: {$employeeModify ? 'block' : 'none'};">
+	<div class="absolute top-[30px] w-[400px] bg-white z-[12] rounded-[4px]" style="display: {$employeeModify ? 'block' : 'none'};">
 		<div class="addForm-heading">
 			<div class="text">Modify Employee</div>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -173,9 +173,6 @@
 	input,
 	select {
 		border: 1px solid gray;
-	}
-	.add-form {
-		height: calc(100vh - 60px);
 	}
 	.addForm-heading {
 		@apply w-[100%] h-[66px] flex flex-row justify-between items-center text-[18px] font-[500] text-black;
