@@ -22,8 +22,9 @@
 	onMount(async () => {
 		// Fetch data from MongoDB
 		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeInfo');
-		const response = await fetch('https://localhost:3000/api/employeeInfo');
+		const response = await fetch('http://localhost:3000/api/employeeInfo');
 		const data = await response.json();
+		console.log(data);
 
 		// Update the store with the fetched data
 		employeeData.set(data);

@@ -8,7 +8,7 @@
 	const addRequest = async () => {
 		console.log(employeeData);
 		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeUpload', {
-		const response = await fetch('https://localhost:3000/api/employeeUpload', {
+		const response = await fetch('http://localhost:3000/api/employeeUpload', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -52,17 +52,23 @@
 	</div>
 	<hr />
 	<form class="addForm" on:submit|preventDefault={() => addRequest()}>
-		{#if $HPage1}
+		<!-- {#if $HPage1} -->
 			<label class="mg" for="name">Name:</label>
 			<input class="add_input" type="text" bind:value={employeeData.name} name="name" id="name" required />
 
-			<label class="mg" for="motherName">Mother Name:</label>
-			<input class="add_input" type="text" bind:value={employeeData.motherName} name="motherName" id="motherName" />
+			<label class="mg" for="passport">Passport:</label>
+			<input class="add_input" type="text" bind:value={employeeData.passportNo} name="passportNo" id="passportNo" />
+
+			<label class="mg" for="passportType">Passport Type:</label>
+			<input class="add_input" type="text" bind:value={employeeData.passportType} name="passportType" id="passportType" />
 
 			<label class="mg" for="fatherName">Father Name:</label>
 			<input class="add_input" type="text" bind:value={employeeData.fatherName} name="fatherName" id="fatherName" />
 
-			<label class="mg" for="address">Address:</label>
+			<label class="mg" for="motherName">Mother Name:</label>
+			<input class="add_input" type="text" bind:value={employeeData.motherName} name="motherName" id="motherName" />
+
+			<!-- <label class="mg" for="address">Address:</label>
 			<input class="add_input" type="text" bind:value={employeeData.address} name="address" id="address" />
 
 			<label class="mg" for="phNo">Phone Number:</label>
@@ -75,20 +81,19 @@
 			<input class="add_input" type="text" bind:value={employeeData.religion} name="religion" id="religion" />
 
 			<label class="mg" for="agent">Agent:</label>
-			<input class="add_input" type="text" bind:value={employeeData.agent} name="agent" id="agent" />
+			<input class="add_input" type="text" bind:value={employeeData.agent} name="agent" id="agent" /> -->
 
-			<label class="mg" for="gender">Gender:</label>
+			<!-- <label class="mg" for="gender">Gender:</label>
 			<select class="add_input" bind:value={employeeData.gender}>
 				<option value="">Select gender</option>
 				<option value="male">Male</option>
 				<option value="female">Female</option>
-			</select>
+			</select> -->
 
-			<label class="mg" for="passport">Passport:</label>
-			<input class="add_input" type="text" bind:value={employeeData.passport} name="passport" id="passport" />
-		{/if}
+			
+		<!-- {/if} -->
 
-		{#if $HPage2}
+		<!-- {#if $HPage2}
 			<label class="mg" for="dob">Date of Birth:</label>
 			<input class="add_input" type="date" bind:value={employeeData.dob} name="dob" id="dob" />
 
@@ -176,29 +181,27 @@
 			<label class="mg" for="smartCardNo">Smart Card No:</label>
 			<input class="add_input" type="text" bind:value={employeeData.smartCardNo} name="smartCardNo" id="smartCardNo" />
 
-		<!-- <label class="mg" for="vaccineData">Vaccine Data:</label>
-		<input class="add_input" type='text'  name="vaccineData" id="vaccineData" /> -->
+		<label class="mg" for="vaccineData">Vaccine Data:</label>
+		<input class="add_input" type='text'  name="vaccineData" id="vaccineData" /> 
 
 			<label class="mg" for="airPlaneNo">Air Plane No:</label>
 			<input class="add_input" type="text" bind:value={employeeData.airPlaneNo} name="airPlaneNo" id="airPlaneNo" />
 
 			<label class="mg" for="departureDate">Departure Date:</label>
 			<input class="add_input" type="text" bind:value={employeeData.departureDate} name="departureDate" id="departureDate" />
-		{/if}
+		{/if} -->
 
 		<div class="addForm-bot">
-			{#if $HPage1 === true}
+			<!-- {#if $HPage1 === true}
 				<div />
 			{:else if $HPage1 === false}
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<div class="bg-[#42a5f5] text-white" on:click={Previous}>Previous</div>
-			{/if}
-			{#if $HPage4 === true}
+			{/if} -->
+			<!-- {#if $HPage4 === true} -->
 				<button class="submit-btn" type="submit">Submit</button>
-			{:else if $HPage4 === false}
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<!-- {:else if $HPage4 === false}
 				<div class="next-btn" on:click={Next}>Next</div>
-			{/if}
+			{/if} -->
 		</div>
 	</form>
 </div>
