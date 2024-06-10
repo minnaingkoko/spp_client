@@ -24,7 +24,6 @@
 		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeInfo');
 		const response = await fetch('http://localhost:3000/api/employeeInfo');
 		const data = await response.json();
-		console.log(data);
 
 		// Update the store with the fetched data
 		employeeData.set(data);
@@ -90,7 +89,7 @@
 		</div>
 	</nav>
 	<EmployeeData />
-	<div class="py-[0] px-[25px] flex flex-row justify-between absolute bottom-0 w-[100%] h-[72px]">
+	<!-- <div class="py-[0] px-[25px] flex flex-row justify-between absolute bottom-0 w-[100%] h-[72px]">
 		<div class="h-[32px] mt-[10px]">
 			Showing <b>5</b> out of <b>25</b> entries
 		</div>
@@ -103,5 +102,5 @@
 			<div class="w-[33px] flex justify-center items-center h-[32px] rounded-[2px] cursor-pointer duration-300 border-[1px] border-[#ddd]">5</div>
 			<div class=" w-[52px] flex justify-center items-center h-[32px] rounded-[2px] cursor-pointer duration-300 border-[1px] border-[#ddd]">Next</div>
 		</div>
-	</div>
+	</div> -->
 {/if}

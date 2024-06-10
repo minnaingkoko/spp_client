@@ -6,7 +6,7 @@
 	import { listToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 </script>
 
-<div class="list-data absolute top-[30px] w-[400px] bg-white z-[12] rounded-[4px]" style="display: {$employeeList ? 'block' : 'none'};">
+<div class="absolute top-[30px] w-[400px] bg-white z-[12] rounded-[4px]" style="display: {$employeeList ? 'block' : 'none'};">
 	<div class="addForm-heading w-[100%] h-[66px] flex flex-row justify-between items-center text-[18px] font-[500] text-black">
 		<div class="text">Employee's Data</div>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -17,12 +17,14 @@
 	<hr />
 	{#each $employeeData as data, index}
 		{#if data._id === $employeeList_id}
-			<form class="flex flex-col gap-[16px] mt-[20px] mb-[95px]">
-				{#if $HPage1}
+			<form class="flex flex-col gap-[16px] mt-[20px] mb-[30px]">
+				<!-- {#if $HPage1} -->
 				<EmployeeTextData text="Name:" value={data.name} />
-				<EmployeeTextData text="Mother Name:" value={data.motherName} />
+				<EmployeeTextData text="Passport No:" value={data.passportNo} />
+				<EmployeeTextData text="Passport Type:" value={data.passportType} />
 				<EmployeeTextData text="Father Name:" value={data.fatherName} />
-				<EmployeeTextData text="Address:" value={data.address} />
+				<EmployeeTextData text="Mother Name:" value={data.motherName} />
+				<!-- <EmployeeTextData text="Address:" value={data.address} />
 				<EmployeeTextData text="Phone Number:" value={data.phNo} />
 				<EmployeeTextData text="NRC No:" value={data.nrcNo} />
 				<EmployeeTextData text="Religion:" value={data.religion} />
@@ -33,10 +35,10 @@
 				<EmployeeTextData text="Weight (kg):" value={data.weight} />
 				<EmployeeTextData text="Height (cm):" value={data.height} />
 				<EmployeeTextData text="Marital Status:" value={data.marital} />
-				<EmployeeTextData text="Education:" value={data.education} />
-				{/if}
+				<EmployeeTextData text="Education:" value={data.education} /> -->
+				<!-- {/if} -->
 
-				{#if $HPage2}
+				<!-- {#if $HPage2}
 				<EmployeeTextData text="Experience:" value={data.experience} />
 				<EmployeeTextData text="Worked Country:" value={data.workedCountry} />
 				<EmployeeTextData text="Spoken Language:" value={data.spokenLanguage} />
@@ -60,24 +62,20 @@
 				<EmployeeTextData text="Smart Card No:" value={data.smartCardNo} />
 				<EmployeeTextData text="AirPlane No:" value={data.airPlaneNo} />
 				<EmployeeTextData text="Departure Date:" value={data.departureDate} />
-				{/if}
+				{/if} -->
 
-				<div class="addForm-bot flex justify-end items-center gap-[12px] rounded-[4px] absolute bottom-0 bg-[#e5e5e5] w-[100%] h-[75px]">
-					<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<!-- <div class="addForm-bot flex justify-end items-center gap-[12px] rounded-[4px] absolute bottom-0 bg-[#e5e5e5] w-[100%] h-[75px]">
 					{#if $HPage1 === true}
 						<div />
 					{:else if $HPage1 === false}
-						<!-- svelte-ignore a11y-click-events-have-key-events -->
 						<div class="bg-[#42a5f5] text-white flex justify-center items-center w-[100px] h-[33px] cursor-pointer" on:click={Previous}>Previous</div>
 					{/if}
 					{#if $HPage3 === true}
-					<!-- svelte-ignore a11y-click-events-have-key-events -->
 						<div class="bg-white flex justify-center items-center w-[100px] h-[33px] cursor-pointer" on:click={listToggle}>Cancel</div>
-					{:else if $HPage3 === false}
-						<!-- svelte-ignore a11y-click-events-have-key-events -->
+					{:else if $HPage3 === false}	
 						<div class="bg-[#4aa84d] text-white flex justify-center items-center w-[100px] h-[33px] cursor-pointer" on:click={Next}>Next</div>
 					{/if}
-				</div>
+				</div> -->
 			</form>
 		{:else}
 			<div />
@@ -86,9 +84,6 @@
 </div>
 
 <style>
-	.list-data {
-		height: calc(100vh - 60px);
-	}
 	.addForm-heading {
 		border-radius: 4px 4px 0 0;
 		padding: 0 30px;

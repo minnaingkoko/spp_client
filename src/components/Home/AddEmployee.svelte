@@ -219,7 +219,6 @@
 	}
 	.add-form {
 		@apply absolute top-[30px] w-[400px] bg-white z-[12] rounded-[4px];
-		height: calc(100vh - 60px);
 	}
 	.cancel-btn {
 		@apply bg-white;

@@ -9,7 +9,8 @@
 
 	const modifyRequest = async (value: any) => {
 		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeModifyRequest', {
-		const response = await fetch('https://localhost:3000/api/employeeModifyRequest', {
+		console.log(employee);
+		const response = await fetch('http://localhost:3000/api/employeeModifyRequest', {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
@@ -35,10 +36,23 @@
 		<hr />
 		<form class="addForm flex flex-col mt-[20px] mb-[95px]" on:submit|preventDefault={() => modifyRequest(employee._id)}>
 			{#if $HPage1}
-				<ModifyTextData text="Name:" value="name" dataF={employee.name} />
-				<ModifyTextData text="Mother Name:" value="motherName" dataF={employee.motherName} />
-				<ModifyTextData text="Father Name:" value="fatherName" dataF={employee.fatherName} />
-				<ModifyTextData text="Address:" value="address" dataF={employee.address} />
+
+				<label class="mg" for="name">Name:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={employee.name} name="name" id="name" required />
+
+				<label class="mg" for="passportNo">Passport No:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={employee.passportNo} name="passportNo" id="passportNo" required />
+
+				<label class="mg" for="passportType">Passport Type</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={employee.passportType} name="passportType" id="passportType" required />
+
+				<label class="mg" for="fatherName">Father Name:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={employee.fatherName} name="fatherName" id="fatherName" required />
+
+				<label class="mg" for="name">Mother Name:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={employee.motherName} name="motherName" id="motherName" required />
+
+				<!-- <ModifyTextData text="Address:" value="address" dataF={employee.address} />
 				<ModifyTextData text="Phone Number:" value="phNo" dataF={employee.phNo} />
 				<ModifyTextData text="NRC No:" value="nrcNo" dataF={employee.nrcNo} />
 				<ModifyTextData text="Religion:" value="religion" dataF={employee.religion} />
@@ -49,15 +63,12 @@
 					<option value="">Select gender</option>
 					<option value="male">Male</option>
 					<option value="female">Female</option>
-				</select>
-
-				<ModifyTextData text="Passport:" value="passport" dataF={employee.passport} />
+				</select> -->
 			{/if}
 
-			{#if $HPage2}
+			<!-- {#if $HPage2}
 				<label class="mg" for="dob">Date of Birth:</label>
-				<!-- <input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="date" bind:value={dateValue} name="dob" id="dob" /> -->
-
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="date" bind:value={dateValue} name="dob" id="dob" />
 				<label class="mg" for="weight">Weight (kg):</label>
 				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="number" bind:value={employee.weight} name="weight" id="weight" step="0.1" placeholder="Optional" />
 
@@ -90,15 +101,15 @@
 					<option value="advanced">English (Advanced)</option>
 				</select>
 
-				<!-- <label class="mg" for="passportScan">Passport Scan:</label>
+				<label class="mg" for="passportScan">Passport Scan:</label>
 				<input type="file" class="form-control mg" id="formFile" on:change={(event) => handleFileChange(event, employeeData.passportScan)} multiple />
 
 				<label class="mg" for="nrcScan">NRC Scan:</label>
-				<input type="file" class="form-control mg" id="formFile" on:change={(event) => handleFileChange(event, employeeData.nrcScan)} multiple /> -->
-			{/if}
+				<input type="file" class="form-control mg" id="formFile" on:change={(event) => handleFileChange(event, employeeData.nrcScan)} multiple />
+			{/if} -->
 
-			{#if $HPage3}
-				<!-- <label class="mg" for="vaccineNotaryScan">Vaccine Notary Scan:</label>
+			<!-- {#if $HPage3}
+				<label class="mg" for="vaccineNotaryScan">Vaccine Notary Scan:</label>
 				<input type="file" class="form-control mg" id="formFile" on:change={(event) => handleFileChange(event, employeeData.vaccineNotaryScan)} multiple />
 
 				<label class="mg" for="medicalOnlineScan">Medical Online Scan:</label>
@@ -117,40 +128,48 @@
 				<input type="file" class="form-control mg" id="formFile" on:change={(event) => handleFileChange(event, employeeData.smartCardScan)} multiple />
 
 				<label class="mg" for="familyDataScan">Family Data Scan:</label>
-				<input type="file" class="form-control mg" id="formFile" on:change={(event) => handleFileChange(event, employeeData.familyDataScan)} multiple /> -->
+				<input type="file" class="form-control mg" id="formFile" on:change={(event) => handleFileChange(event, employeeData.familyDataScan)} multiple />
 
 				<ModifyTextData text="Deposit:" value="deposit" dataF={employee.deposit} />
 				<ModifyTextData text="Apply Date:" value="applyDate" dataF={employee.applyDate} />
 				<ModifyTextData text="Passport Expire Date:" value="passportExpireDate" dataF={employee.passportExpireDate} />
-			{/if}
+			{/if} -->
 
-			{#if $HPage4}
+			<!-- {#if $HPage4}
 				<ModifyTextData text="Passport Type:" value="passportType" dataF={employee.passportType} />
 				<ModifyTextData text="Medical Online Expire:" value="medicalOnlineExpire" dataF={employee.medicalOnlineExpire} />
 				<ModifyTextData text="Smart Card No:" value="smartCardNo" dataF={employee.smartCardNo} />
 				<ModifyTextData text="Air Plane No:" value="airPlaneNo" dataF={employee.airPlaneNo} />
 				<ModifyTextData text="Departure Date:" value="departureDate" dataF={employee.departureDate} />
-			{/if}
+			{/if} -->
 
 			<div class="addForm-bot absolute bottom-0 bg-[#e5e5e5] w-[100%] h-[75px] flex justify-end items-center gap-[12px] rounded-[4px]">
+				<button class="flex justify-center items-center w-[100px] h-[33px] cursor-pointer border-none bg-[#4aa84d] text-white" type="submit">Submit</button>
+			</div>
+
+			<!-- <div class="addForm-bot absolute bottom-0 bg-[#e5e5e5] w-[100%] h-[75px] flex justify-end items-center gap-[12px] rounded-[4px]">
 				{#if $HPage1 === true}
 					<div />
 				{:else if $HPage1 === false}
-					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<div class="bg-[#42a5f5] text-white flex justify-center items-center w-[100px] h-[33px] cursor-pointer" on:click={Previous}>Previous</div>
 				{/if}
 				{#if $HPage4 === true}
 					<button class="flex justify-center items-center w-[100px] h-[33px] cursor-pointer border-none bg-[#4aa84d] text-white" type="submit">Submit</button>
 				{:else if $HPage4 === false}
-					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<div class="bg-[#4aa84d] text-white flex justify-center items-center w-[100px] h-[33px] cursor-pointer" on:click={Next}>Next</div>
 				{/if}
-			</div>
+			</div> -->
 		</form>
 	</div>
 {/if}
 
 <style>
+	input {
+		border: 1px solid gray;
+	}
+    .mg {
+		margin: 0 30px;
+	}
 	input,
 	select {
 		border: 1px solid gray;

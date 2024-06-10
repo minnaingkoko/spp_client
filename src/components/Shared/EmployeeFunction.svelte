@@ -49,7 +49,7 @@
 
 	const modifyPost = async (value: any) => {
 		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeModify', {
-		const response = await fetch('https://localhost:3000/api/employeeModify', {
+		const response = await fetch('http://localhost:3000/api/employeeModify', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
