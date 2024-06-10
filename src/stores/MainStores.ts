@@ -10,6 +10,8 @@ export const fullImgType = writable('');
 export const employeeData = writable<Array<any>>([]);
 
 export const employeeSearch = writable(false);
+export const workerSearchData = writable<any>(null);
+
 export const employeeAdd = writable(false);
 export const employeeView = writable(false);
 

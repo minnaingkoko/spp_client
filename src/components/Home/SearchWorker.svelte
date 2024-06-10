@@ -1,24 +1,26 @@
 <script lang="ts">
-    import { employeeSearch } from '../../stores/MainStores'
+    import { employeeSearch, workerSearchData } from '../../stores/MainStores'
 	import close_icon from '$lib/images/close.svg';
     import { goto } from '$app/navigation';
-	import { employeeData } from './AddData.svelte';
 	import { searchToggle } from '../Shared/EmployeeFunction.svelte';
 
+	$: condition1Name = '';
+	$: condition1Value = '';
+
     const searchRequest = async () => {
-		console.log(employeeData);
 		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeUpload', {
-		const response = await fetch('http://localhost:3000/api/employeeUpload', {
+		const response = await fetch('http://localhost:3000/api/searchEmployee', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(employeeData)
+			body: JSON.stringify({[condition1Name]: condition1Value})
 		});
-		if (response.status === 200) { 
-			// goto('/');
-			location.reload();
-		}
+
+		const data = await response.json();
+		console.log(data);
+		// location.reload();
+
 	};
 
 </script>
@@ -40,14 +42,14 @@
                 <option value="3">3</option>
 			</select>
 
-			<label class="mg" for="searchedBy">Searched By (Condition 1):</label>
-			<select class="add_input" bind:value={employeeData.name}>
+			<label class="mg" for="condition1Name">Searched By (Condition 1):</label>
+			<select class="add_input" bind:value={condition1Name}>
 				<option value="name">Name</option>
 				<option value="passportNo">Passport No</option>
 			</select>
 
-			<label class="mg" for="passport">Condition 1 Value:</label>
-			<input class="add_input" type="text" bind:value={employeeData.passportNo} name="passportNo" id="passportNo" />
+			<label class="mg" for="condition1Value">Condition 1 Value:</label>
+			<input class="add_input" type="text" bind:value={condition1Value} name="condition1Value" id="condition1Value" />
 
 		<div class="addForm-bot">
 			<!-- {#if $HPage1 === true}
