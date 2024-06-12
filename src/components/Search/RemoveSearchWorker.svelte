@@ -1,9 +1,6 @@
 <script lang="ts">
 	import close_icon from '$lib/images/close.svg';
 	import { workerSearchData, employeeView, employeeRemove, employeeRemove_id } from '../../stores/MainStores';
-	import { goto } from '$app/navigation';
-
-	const empty:any = [];
 
 	const deleteToggle = (value: any) => {
 		employeeRemove_id.update(() => value);
@@ -21,9 +18,9 @@
 			body: JSON.stringify({ idNo: value })
 		});
 		if (response.status === 200) {
+			workerSearchData.update(() => []);
 			employeeView.update((currentValue) => !currentValue);
 			employeeRemove.update((currentValue) => !currentValue);
-			goto('/');
 		}
 	};
 </script>

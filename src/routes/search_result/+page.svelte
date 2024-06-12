@@ -6,12 +6,12 @@
 	import download_icon from '$lib/images/download.svg';
 	import { employeeModifyData, employeeView, fullImg, fullImgUrl, fullImgName, fullImgType } from '../../stores/MainStores';
 	import ListEmployee from '../../components/Home/ListEmployee.svelte';
-	import RemoveEmployee from '../../components/Home/RemoveEmployee.svelte';
 	import SearchWorker from '../../components/Home/SearchWorker.svelte';
 	import add_icon from '$lib/images/add_circle.svg';
 	import search_icon from '$lib/images/search.svg';
 	import edit_icon from '$lib/images/edit_alt.svg';
 	import ModifySearchWorker from '../../components/Search/ModifySearchWorker.svelte';
+	import RemoveSearchWorker from '../../components/Search/RemoveSearchWorker.svelte';
 	
 
 	const manageWorkers = () => {
@@ -45,7 +45,7 @@
 	<div class="fixed hidden justify-center top-[0] right-[0] bottom-[0] left-[0] z-[10] duration-300" style="display: {$employeeView ? 'flex' : 'none'}; background: rgba(0, 0, 0, 0.3);">
 		<SearchWorker />
 
-		<RemoveEmployee />
+		<RemoveSearchWorker />
 
 		{#if employeeModifyData}
 			<ModifySearchWorker />
