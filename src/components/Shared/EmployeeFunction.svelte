@@ -58,11 +58,14 @@
 		});
 		const data = await response.json();
 
+		console.log(data);
+
 		// Update the store with the fetched data
 		employeeModifyData.set(data);
 	};
 
 	export const modifyToggle = (value: any) => {
+		// console.log(value);
 		resetPage();
 		modifyPost(value);
 		employeeList_id.update(() => value);

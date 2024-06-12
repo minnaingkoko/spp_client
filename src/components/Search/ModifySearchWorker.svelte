@@ -1,16 +1,18 @@
 <script lang="ts">
-	import { employeeModifyData, employeeData, employeeView, HPage1, HPage2, HPage3, HPage4, employeeModify } from '../../stores/MainStores';
+	import { employeeModifyData, workerSearchData, employeeView, HPage1, HPage2, HPage3, HPage4, employeeModify } from '../../stores/MainStores';
 	import close_icon from '$lib/images/close.svg';
 	import { goto } from '$app/navigation';
 	import { modifyToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
-	import ModifyTextData from './ModifyTextData.svelte';
+	// import ModifyTextData from './ModifyTextData.svelte';
 
 	$: employee = $employeeModifyData;
 
 	const modifyRequest = async (value: any) => {
 		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeModifyRequest', {
 		// console.log(employee);
-		// employeeData.update(() => Array.of(employee));
+		// console.log(employee);
+		// workerSearchData.update(() => Array.of(employee));
+
 		const response = await fetch('http://localhost:3000/api/employeeModifyRequest', {
 			method: 'PUT',
 			headers: {
@@ -18,10 +20,17 @@
 			},
 			body: JSON.stringify(employee)
 		});
+		console.log(response.status);
 		if (response.status === 200) {
-			const another_response = await fetch('http://localhost:3000/api/employeeInfo');
+			const another_response = await fetch('http://localhost:3000/api/employeeModify', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ idNo: employee._id })
+			});
 			const data = await another_response.json();
-			employeeData.update(() => data);
+			workerSearchData.update(() => [data]);
 			employeeView.update((currentValue) => !currentValue);
 			employeeModify.update((currentValue) => !currentValue);
 		}

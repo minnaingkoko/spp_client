@@ -74,7 +74,7 @@
 		// };
 	}
 
-	export let employeeData: Scan = {
+	export let employeeDataType: Scan = {
 		name: '',
 		passportNo: '',
 		passportType: '',

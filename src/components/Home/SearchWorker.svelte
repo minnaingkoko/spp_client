@@ -19,8 +19,9 @@
 
 		const data = await response.json();
 		console.log(data);
-		// location.reload();
-
+		workerSearchData.set(data);
+		searchToggle();
+		goto('/search_result');
 	};
 
 </script>

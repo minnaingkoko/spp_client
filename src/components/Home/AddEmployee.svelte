@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { employeeView, HPage1, HPage2, HPage3, HPage4, employeeAdd } from '../../stores/MainStores';
+	import { employeeData, employeeView, HPage1, HPage2, HPage3, HPage4, employeeAdd } from '../../stores/MainStores';
 	import close_icon from '$lib/images/close.svg';
 	import { goto } from '$app/navigation';
-	import { employeeData } from './AddData.svelte';
+	import { employeeDataType } from './AddData.svelte';
 	import { addToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 
 	const addRequest = async () => {
@@ -13,11 +13,14 @@
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(employeeData)
+			body: JSON.stringify(employeeDataType)
 		});
 		if (response.status === 200) {
-			goto('/');
-			location.reload();
+			const another_response = await fetch('http://localhost:3000/api/employeeInfo');
+			const data = await another_response.json();
+			employeeData.update(() => data);
+			employeeView.update((currentValue) => !currentValue);
+			employeeAdd.update((currentValue) => !currentValue);
 		}
 	};
 
@@ -54,19 +57,19 @@
 	<form class="addForm" on:submit|preventDefault={() => addRequest()}>
 		<!-- {#if $HPage1} -->
 			<label class="mg" for="name">Name:</label>
-			<input class="add_input" type="text" bind:value={employeeData.name} name="name" id="name" required />
+			<input class="add_input" type="text" bind:value={employeeDataType.name} name="name" id="name" required />
 
 			<label class="mg" for="passport">Passport:</label>
-			<input class="add_input" type="text" bind:value={employeeData.passportNo} name="passportNo" id="passportNo" />
+			<input class="add_input" type="text" bind:value={employeeDataType.passportNo} name="passportNo" id="passportNo" />
 
 			<label class="mg" for="passportType">Passport Type:</label>
-			<input class="add_input" type="text" bind:value={employeeData.passportType} name="passportType" id="passportType" />
+			<input class="add_input" type="text" bind:value={employeeDataType.passportType} name="passportType" id="passportType" />
 
 			<label class="mg" for="fatherName">Father Name:</label>
-			<input class="add_input" type="text" bind:value={employeeData.fatherName} name="fatherName" id="fatherName" />
+			<input class="add_input" type="text" bind:value={employeeDataType.fatherName} name="fatherName" id="fatherName" />
 
 			<label class="mg" for="motherName">Mother Name:</label>
-			<input class="add_input" type="text" bind:value={employeeData.motherName} name="motherName" id="motherName" />
+			<input class="add_input" type="text" bind:value={employeeDataType.motherName} name="motherName" id="motherName" />
 
 			<!-- <label class="mg" for="address">Address:</label>
 			<input class="add_input" type="text" bind:value={employeeData.address} name="address" id="address" />
