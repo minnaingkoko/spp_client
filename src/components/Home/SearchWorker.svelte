@@ -4,24 +4,31 @@
 	import { goto } from '$app/navigation';
 	import { searchToggle } from '../Shared/EmployeeFunction.svelte';
 
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
+
 	$: condition1Name = '';
 	$: condition1Value = '';
 
 	const searchRequest = async () => {
-		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeUpload', {
-		const response = await fetch('http://localhost:3000/api/searchEmployee', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ [condition1Name]: condition1Value })
-		});
+		if (process.env.NODE_ENV === 'production') {
+			// For production
+			console.log(PUBLIC_SERVER_API_KEY);
+		} else {
+			// For development
+			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/searchEmployee`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ [condition1Name]: condition1Value })
+			});
 
-		const data = await response.json();
-		console.log(data);
-		workerSearchData.set(data);
-		searchToggle();
-		goto('/search_result');
+			const data = await response.json();
+			console.log(data);
+			workerSearchData.set(data);
+			searchToggle();
+			goto('/search_result');
+		}
 	};
 </script>
 

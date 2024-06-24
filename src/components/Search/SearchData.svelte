@@ -3,23 +3,31 @@
 	import edit_icon from '$lib/assets/edit.svg';
 	import delete_icon from '$lib/assets/delete.svg';
 
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public'
+
 	import { workerSearchData, workerView, workerList_id, workerModify, workerModifyData } from '../../stores/WorkerStore';
 	import { listToggle, deleteToggle } from '../Shared/EmployeeFunction.svelte';
 
 	const modifyPost = async (value: any) => {
-		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeModify', {
-		const response = await fetch('http://localhost:3000/api/employeeModify', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ idNo: value })
-		});
-		const data = await response.json();
-		console.log(data);
 
-		// Update the store with the fetched data
-		workerModifyData.set(data);
+		if (process.env.NODE_ENV === 'production') {
+			// For production
+			console.log(PUBLIC_SERVER_API_KEY)
+		} else {
+			// For development
+			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeModify`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ idNo: value })
+			});
+			const data = await response.json();
+			console.log(data);
+
+			// Update the store with the fetched data
+			workerModifyData.set(data);
+		}
 	};
 
 	const modifyToggle = (value: any) => {

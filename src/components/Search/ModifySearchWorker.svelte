@@ -2,6 +2,8 @@
 	import { HPage1, HPage2, HPage3, HPage4 } from '../../stores/MainStores';
 	import { workerModifyData, workerSearchData, workerView, workerModify } from '../../stores/WorkerStore';
 
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
+
 	import close_icon from '$lib/assets/close.svg';
 
 	import { goto } from '$app/navigation';
@@ -12,28 +14,33 @@
 	$: worker = $workerModifyData;
 
 	const modifyRequest = async (value: any) => {
-		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeModifyRequest', {
 
-		const response = await fetch('http://localhost:3000/api/employeeModifyRequest', {
-			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(worker)
-		});
-		console.log(response.status);
-		if (response.status === 200) {
-			const another_response = await fetch('http://localhost:3000/api/employeeModify', {
-				method: 'POST',
+		if (process.env.NODE_ENV === 'production') {
+			// For production
+			console.log(PUBLIC_SERVER_API_KEY);
+		} else {
+			// For development
+			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeModifyRequest`, {
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ idNo: worker._id })
+				body: JSON.stringify(worker)
 			});
-			const data = await another_response.json();
-			workerSearchData.update(() => [data]);
-			workerView.update((currentValue) => !currentValue);
-			workerModify.update((currentValue) => !currentValue);
+			console.log(response.status);
+			if (response.status === 200) {
+				const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeModify`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ idNo: worker._id })
+				});
+				const data = await another_response.json();
+				workerSearchData.update(() => [data]);
+				workerView.update((currentValue) => !currentValue);
+				workerModify.update((currentValue) => !currentValue);
+			}
 		}
 	};
 </script>

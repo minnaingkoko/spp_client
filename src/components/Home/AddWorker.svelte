@@ -5,34 +5,41 @@
 	import { workerData, workerView, workerAdd } from '../../stores/WorkerStore';
 	import { addToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
+
 	import close_icon from '$lib/assets/close.svg';
 
 	import { workerDataType } from './AddData.svelte';
-	
-	const addRequest = async () => {
 
-		const response = await fetch('http://localhost:3000/api/employeeUpload', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(workerDataType)
-		});
-		if (response.status === 200) {
-			workerDataType.name = '';
-			workerDataType.passportNo = '';
-			workerDataType.passportType = '';
-			workerDataType.gender = '';
-			workerDataType.dob = null;
-			workerDataType.ppIssueDate = null;
-			workerDataType.ppExpireDate = null;
-			workerDataType.pob = '';
-			workerDataType.authority = '';
-			const another_response = await fetch('http://localhost:3000/api/employeeInfo');
-			const data = await another_response.json();
-			workerData.update(() => data);
-			workerView.update((currentValue) => !currentValue);
-			workerAdd.update((currentValue) => !currentValue);
+	const addRequest = async () => {
+		if (process.env.NODE_ENV === 'production') {
+			// For production
+			console.log(PUBLIC_SERVER_API_KEY);
+		} else {
+			// For development
+			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeUpload`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(workerDataType)
+			});
+			if (response.status === 200) {
+				workerDataType.name = '';
+				workerDataType.passportNo = '';
+				workerDataType.passportType = '';
+				workerDataType.gender = '';
+				workerDataType.dob = null;
+				workerDataType.ppIssueDate = null;
+				workerDataType.ppExpireDate = null;
+				workerDataType.pob = '';
+				workerDataType.authority = '';
+				const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
+				const data = await another_response.json();
+				workerData.update(() => data);
+				workerView.update((currentValue) => !currentValue);
+				workerAdd.update((currentValue) => !currentValue);
+			}
 		}
 	};
 

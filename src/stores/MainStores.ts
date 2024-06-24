@@ -1,5 +1,7 @@
 import { writable } from 'svelte/store';
 
+export const api_url = writable('');
+
 export const fullImg = writable(false);
 export const fullImgUrl = writable('');
 export const fullImgName = writable('');

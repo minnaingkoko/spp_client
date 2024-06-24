@@ -1,6 +1,8 @@
 <script lang="ts" context="module">
 	import { HPage1, HPage2, HPage3, HPage4, fullImg, fullImgUrl, fullImgName, fullImgType } from '../../stores/MainStores';
 
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public'
+
 	import { workerView, workerAdd, workerSearch, workerList_id, workerModify, workerModifyData, workerList, workerRemove_id, workerRemove } from '../../stores/WorkerStore';
 
 	let Page1: any, Page2: any, Page3: any, Page4: any;
@@ -50,20 +52,26 @@
 	};
 
 	const modifyPost = async (value: any) => {
-		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeModify', {
-		const response = await fetch('http://localhost:3000/api/employeeModify', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ idNo: value })
-		});
-		const data = await response.json();
 
-		console.log(data);
+		if (process.env.NODE_ENV === 'production') {
+			// For production
+			console.log(PUBLIC_SERVER_API_KEY)
+		} else {
+			// For development
+			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeModify`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ idNo: value })
+			});
+			const data = await response.json();
 
-		// Update the store with the fetched data
-		workerModifyData.set(data);
+			console.log(data);
+
+			// Update the store with the fetched data
+			workerModifyData.set(data);
+		}
 	};
 
 	export const modifyToggle = (value: any) => {

@@ -19,18 +19,24 @@
 	import search_icon from '$lib/assets/search.svg';
 	import edit_icon from '$lib/assets/edit_alt.svg';
 
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public'
+
 	const manageCompanies = () => {
 		goto('/company');
 	};
 
 	onMount(async () => {
-		// Fetch data from MongoDB
-		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeInfo');
-		const response = await fetch('http://localhost:3000/api/employeeInfo');
-		const data = await response.json();
+		if (process.env.NODE_ENV === 'production') {
+			// For production
+			console.log(PUBLIC_SERVER_API_KEY)
+		} else {
+			// For development
+			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
+			const data = await response.json();
 
-		// Update the store with the fetched data
-		workerData.set(data);
+			// Update the store with the fetched data
+			workerData.set(data);
+		}
 	});
 	$: image = $fullImg;
 </script>

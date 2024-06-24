@@ -5,25 +5,32 @@
 	import { workerModifyData, workerData, workerView, workerModify } from '../../stores/WorkerStore';
 	import { modifyToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
+
 	import close_icon from '$lib/assets/close.svg';
 
 	$: worker = $workerModifyData;
 
 	const modifyRequest = async (value: any) => {
-		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeModifyRequest', {
-		const response = await fetch('http://localhost:3000/api/employeeModifyRequest', {
-			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(worker)
-		});
-		if (response.status === 200) {
-			const another_response = await fetch('http://localhost:3000/api/employeeInfo');
-			const data = await another_response.json();
-			workerData.update(() => data);
-			workerView.update((currentValue) => !currentValue);
-			workerModify.update((currentValue) => !currentValue);
+		if (process.env.NODE_ENV === 'production') {
+			// For production
+			console.log(PUBLIC_SERVER_API_KEY);
+		} else {
+			// For development
+			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeModifyRequest`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(worker)
+			});
+			if (response.status === 200) {
+				const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
+				const data = await another_response.json();
+				workerData.update(() => data);
+				workerView.update((currentValue) => !currentValue);
+				workerModify.update((currentValue) => !currentValue);
+			}
 		}
 	};
 </script>

@@ -3,6 +3,8 @@
 	import { workerData, workerView, workerRemove, workerRemove_id } from '../../stores/WorkerStore';
 	import { goto } from '$app/navigation';
 
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
+
 	const deleteToggle = (value: any) => {
 		workerRemove_id.update(() => value);
 		workerView.update((currentValue) => !currentValue);
@@ -10,20 +12,25 @@
 	};
 
 	const deleteRequest = async (value: any) => {
-		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeDelete', {
-		const response = await fetch('http://localhost:3000/api/employeeDelete', {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ idNo: value })
-		});
-		if (response.status === 200) {
-			const another_response = await fetch('http://localhost:3000/api/employeeInfo');
-			const data = await another_response.json();
-			workerData.update(() => data);
-			workerView.update((currentValue) => !currentValue);
-			workerRemove.update((currentValue) => !currentValue);
+		if (process.env.NODE_ENV === 'production') {
+			// For production
+			console.log(PUBLIC_SERVER_API_KEY);
+		} else {
+			// For development
+			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeDelete`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ idNo: value })
+			});
+			if (response.status === 200) {
+				const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
+				const data = await another_response.json();
+				workerData.update(() => data);
+				workerView.update((currentValue) => !currentValue);
+				workerRemove.update((currentValue) => !currentValue);
+			}
 		}
 	};
 </script>

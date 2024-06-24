@@ -1,6 +1,7 @@
 import { createToken } from '$lib/session';
 import bcrypt from 'bcrypt'; // Assuming you're using bcrypt for password hashing
 import { redirect } from '@sveltejs/kit';
+import { SECRET_USERNAME, SECRET_PASSWORD, SECRET_SESSION } from '$env/static/private'
 
 /** @type {import('./$types').Actions} */
 export const actions = {
@@ -28,8 +29,8 @@ async function getUserByUsername(username) {
 	// Replace with your actual user fetching logic, e.g., from a database
 	const users = [
 		{
-			username: 'shanpyaephyo',
-			password: '$2a$12$bu.wBFrNYAUNdqNLxi8EFur2bw4toL8z9OYc8eEpMu/7rmD87HzEO' // This should be a bcrypt hashed password
+			username: SECRET_USERNAME,
+			password: `$2a$12$bu.${SECRET_PASSWORD}` // This should be a bcrypt hashed password
 		}
 	];
 
