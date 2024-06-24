@@ -40,23 +40,23 @@
 	};
 </script>
 
-<div class="employees_data">
-	<div class="e_heading">
-		<div class="col1">Select</div>
-		<div class="col2">No</div>
-		<div class="col3">Name</div>
-		<div class="col4">Passport No</div>
-		<div class="col5">Passport Type</div>
-		<div class="col6">Gender</div>
-		<div class="col7">Date of Birth</div>
-		<div class="col14">Actions</div>
+<div class="text-black">
+	<div class="h-[50px] text-[14px] flex flex-row w-[100%] font-bold ">
+		<div class="col1 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Select</div>
+		<div class="col2 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">No</div>
+		<div class="col3 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Name</div>
+		<div class="col4 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Passport No</div>
+		<div class="col5 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Passport Type</div>
+		<div class="col6 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Gender</div>
+		<div class="col7 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Date of Birth</div>
+		<div class="col14 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Actions</div>
 	</div>
-	<div class="hr" />
+	<div class="w-[100%] h-[2px] bg-[#e9e9e9]" />
 	<ul>
 		{#each $workerSearchData as data, index}
 			<div class={index % 2 === 0 ? 'row-alt' : 'row'}>
 				<div class="col1">
-					<input class="cb" type="checkbox" />
+					<input class="m-0" type="checkbox" />
 				</div>
 				<div class="col2">{index + 1}</div>
 				<div class="col3">{data.name}</div>
@@ -79,34 +79,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="hr" />
+			<div class="w-[100%] h-[2px] bg-[#e9e9e9]" />
 		{/each}
 	</ul>
 </div>
 
 <style>
-	.employees_data {
-		color: black;
-	}
-	.hr {
-		width: 100%;
-		height: 2px;
-		background-color: #e9e9e9;
-	}
-	.cb {
-		margin: 0;
-	}
-	.e_heading,
 	.row-alt,
 	.row {
 		font-size: 14px;
 		display: flex;
 		flex-direction: row;
 		width: 100%;
-	}
-	.e_heading {
-		height: 50px;
-		font-weight: bold;
 	}
 	.row-alt {
 		height: 52px;
@@ -116,7 +100,6 @@
 		height: 52px;
 		background-color: #f5f5f5;
 	}
-	.e_heading > div,
 	.row > div,
 	.row-alt > div {
 		display: flex;
@@ -157,48 +140,6 @@
 	.col7 {
 		width: 180px;
 	}
-	/* .col7 {
-		width: 60px;
-		white-space: nowrap; 
-  		overflow: hidden;
-		text-overflow: ellipsis;
-	} */
-	.col8 {
-		width: 200px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	.col9 {
-		width: 140px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	.col10 {
-		width: 220px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	.col11 {
-		width: 100px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	.col12 {
-		width: 130px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	.col13 {
-		width: 100px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
 	.col14 {
 		border-right: 0 !important;
 		display: flex;
@@ -211,8 +152,7 @@
 	}
 	.visibility,
 	.edit,
-	.delete,
-	.close {
+	.delete {
 		cursor: pointer;
 		transition: 0.3s;
 	}

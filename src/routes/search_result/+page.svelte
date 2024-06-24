@@ -54,7 +54,7 @@
 		<ListWorkers />
 	</div>
 
-	<nav class="px-[30px] py-[16px] flex bg-[#435e7c] w-[100%] h-[65px] justify-between items-center">
+	<nav class="px-[30px] py-[16px] flex bg-[#536DFE] w-[100%] h-[65px] justify-between items-center">
 		<div class="text-[white] text-[24px]">
 			Searched <b>Workers</b>
 		</div>
