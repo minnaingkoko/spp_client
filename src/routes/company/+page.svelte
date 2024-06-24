@@ -1,24 +1,27 @@
 <script lang="ts">
-	import CompanyData from '../../components/Company/CompanyData.svelte';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+
 	import { toggleImg, assignEmployee, searchToggle, addToggle } from '../../components/Shared/CompanyFunction.svelte';
 	import { employeeData, companyData, companyModifyData, companyView, employeeView, companyAdd, companySearch, CPage1, CPage2, CPage3, assign, fullImg, fullImgUrl, fullImgName } from '../../stores/MainStores';
-	import close_icon from '$lib/images/close.svg';
-	import download_icon from '$lib/images/download.svg';
+
+	import CompanyData from '../../components/Company/CompanyData.svelte';
 	import AddCompany from '../../components/Company/AddCompany.svelte';
 	import RemoveCompany from '../../components/Company/RemoveCompany.svelte';
 	import ListCompany from '../../components/Company/ListCompany.svelte';
 	import ModifyCompany from '../../components/Company/ModifyCompany.svelte';
 	import AssignEmployee from '../../components/Company/AssignEmployee.svelte';
-	import ListEmployee from '../../components/Home/ListEmployee.svelte';
-	import add_icon from '$lib/images/add_circle.svg';
-	import search_icon from '$lib/images/search.svg';
-	import edit_icon from '$lib/images/edit_alt.svg';
+	import ListEmployee from '../../components/Home/ListWorkers.svelte';
+
+	import close_icon from '$lib/assets/close.svg';
+	import download_icon from '$lib/assets/download.svg';
+	import add_icon from '$lib/assets/add_circle.svg';
+	import search_icon from '$lib/assets/search.svg';
+	import edit_icon from '$lib/assets/edit_alt.svg';
 
 	const manageEmployees = () => {
 		goto('/');
-	}
+	};
 
 	onMount(async () => {
 		// Fetch data from MongoDB
@@ -46,7 +49,7 @@
 	<div class="overlay-img" />
 	<div class="mid-align">
 		<!-- svelte-ignore a11y-missing-attribute -->
-		<iframe class="fullImg" width="600" height="800" src='https://shanpyaephyo.s3.ap-south-1.amazonaws.com/passport/Final+Company+Profile+(2).docx'></iframe>
+		<iframe class="fullImg" width="600" height="800" src="https://shanpyaephyo.s3.ap-south-1.amazonaws.com/passport/Final+Company+Profile+(2).docx" />
 	</div>
 {:else if image === false}
 	<div class="overlay" style="display: {$companyView ? 'flex' : 'none'};">
@@ -75,11 +78,11 @@
 		</div>
 		<div class="nav-btns">
 			{#if !$assign}
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<div class="flex justify-center items-center gap-[5px] w-[164px] h-[33px] text-white duration-300 bg-[#F9A826] rounded-[4px] text-[13px] cursor-pointer" on:click={manageEmployees}>
-				<img class="edit" src={edit_icon} alt="" width="20px" height="20px" />
-				<span>Manage Employees</span>
-			</div>
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<div class="flex justify-center items-center gap-[5px] w-[164px] h-[33px] text-white duration-300 bg-[#F9A826] rounded-[4px] text-[13px] cursor-pointer" on:click={manageEmployees}>
+					<img class="edit" src={edit_icon} alt="" width="20px" height="20px" />
+					<span>Manage Employees</span>
+				</div>
 			{/if}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<div class="search-btn" on:click={searchToggle}>

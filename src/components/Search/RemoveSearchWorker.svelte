@@ -1,11 +1,11 @@
 <script lang="ts">
-	import close_icon from '$lib/images/close.svg';
-	import { workerSearchData, employeeView, employeeRemove, employeeRemove_id } from '../../stores/MainStores';
+	import close_icon from '$lib/assets/close.svg';
+	import { workerSearchData, workerView, workerRemove, workerRemove_id } from '../../stores/WorkerStore';
 
 	const deleteToggle = (value: any) => {
-		employeeRemove_id.update(() => value);
-		employeeView.update((currentValue) => !currentValue);
-		employeeRemove.update((currentValue) => !currentValue);
+		workerRemove_id.update(() => value);
+		workerView.update((currentValue) => !currentValue);
+		workerRemove.update((currentValue) => !currentValue);
 	};
 
 	const deleteRequest = async (value: any) => {
@@ -19,15 +19,15 @@
 		});
 		if (response.status === 200) {
 			workerSearchData.update(() => []);
-			employeeView.update((currentValue) => !currentValue);
-			employeeRemove.update((currentValue) => !currentValue);
+			workerView.update((currentValue) => !currentValue);
+			workerRemove.update((currentValue) => !currentValue);
 		}
 	};
 </script>
 
-<div class="absolute top-[30px] w-[400px] bg-white z-[12] rounded-[4px] h-[240px]" style="display: {$employeeRemove ? 'block' : 'none'};">
+<div class="absolute top-[30px] w-[400px] bg-white z-[12] rounded-[4px] h-[240px]" style="display: {$workerRemove ? 'block' : 'none'};">
 	<div class="removeForm-heading w-[100%] h-[66px] flex flex-row justify-between items-center text-[18px] font-[500] text-black">
-		<div class="text">Delete Employee</div>
+		<div class="text">Delete Worker</div>
 		<!-- svelte-ignore a11y-click-events-have-key-events  -->
 		<div class="cursor-pointer" on:click={deleteToggle}>
 			<img src={close_icon} alt="" width="24px" height="24px" />
@@ -38,9 +38,9 @@
 		<div>Are you sure you want to delete these Records?</div>
 		<div class="text-[12px] text-[#8a6d3b]">This action cannot be undone.</div>
 	</div>
-	<form class="flex flex-col mt-[20px] mb-[95px]" on:submit|preventDefault={() => deleteRequest($employeeRemove_id)}>
+	<form class="flex flex-col mt-[20px] mb-[95px]" on:submit|preventDefault={() => deleteRequest($workerRemove_id)}>
 		<div class="removeForm-bot flex flex-row justify-end gap-[12px] items-center absolute bottom-0 bg-[#e5e5e5] w-[100%] h-[75px]">
-			<input type="hidden" name="idNo" value={$employeeRemove_id} />
+			<input type="hidden" name="idNo" value={$workerRemove_id} />
 			<!-- svelte-ignore a11y-click-events-have-key-events  -->
 			<div class="remove_btn1 flex justify-center items-center bg-white w-[100px] h-[33px] text-[14px] cursor-pointer rounded-[4px]" on:click={deleteToggle}>Cancel</div>
 			<button class="remove_btn2 bg-[#d9534f] text-white w-[100px] h-[33px] text-[14px] cursor-pointer rounded-[4px]" type="submit">Delete</button>

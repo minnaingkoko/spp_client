@@ -1,17 +1,25 @@
-<script lang="ts" context='module'>
-    interface Scan {
+<script lang="ts" context="module">
+	interface Work {
 		name: string;
 		passportNo: string;
 		passportType: string;
-		fatherName: string;
-		motherName: string;
+		gender: string;
+		dob: null;
+		ppIssueDate: null;
+		ppExpireDate: null;
+		pob: string;
+		authority: string;
+
+		// fatherName: string;
+		// motherName: string;
 		// address: string;
-		// phNo: string;
 		// nrcNo: string;
-		// religion: string;
+		// phNo: string;
 		// agent: string;
-		// gender: string;
-		// dob: null;
+		// deposit: string;
+		// airPlaneNo: string;
+		// departureDate: string;
+		// religion: string;
 		// weight: null;
 		// height: null;
 		// marital: string;
@@ -19,14 +27,10 @@
 		// experience: string;
 		// workedCountry: string;
 		// spokenLanguage: string;
-		// deposit: string;
 		// applyDate: string;
 		// passportExpireDate: string;
-
 		// medicalOnlineExpire: string;
 		// smartCardNo: string;
-		// airPlaneNo: string;
-		// departureDate: string;
 		// passportScan: {
 		// 	filename: string;
 		// 	contentType: string;
@@ -74,19 +78,33 @@
 		// };
 	}
 
-	export let employeeDataType: Scan = {
+	export let workerDataType: Work = {
 		name: '',
 		passportNo: '',
 		passportType: '',
-		fatherName: '',
-		motherName: '',
+		gender: '',
+		dob: null,
+		ppIssueDate: null,
+		ppExpireDate: null,
+		pob: '',
+		authority: '',
+
+		// fatherName: '',
+		// motherName: '',
+		// address: '',
+		// nrcNo: '',
+		// phNo: '',
+		// agent: '',
+		// deposit: '',
+		// airPlaneNo: '',
+		// departureDate: '',
+		// fatherName: '',
+		// motherName: ''
 		// address: '',
 		// phNo: '',
 		// nrcNo: '',
 		// religion: '',
 		// agent: '',
-		// gender: '',
-		// dob: null,
 		// weight: null,
 		// height: null,
 		// marital: '',

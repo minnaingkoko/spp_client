@@ -1,5 +1,5 @@
-<script lang="ts" context='module'>
-    interface Scan {
+<script lang="ts" context="module">
+	interface Scan {
 		companyName: string;
 		companyAddress: string;
 		postCode: string;

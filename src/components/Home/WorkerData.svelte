@@ -1,8 +1,8 @@
 <script lang="ts">
-	import visibility_icon from '$lib/images/visibility.svg';
-	import edit_icon from '$lib/images/edit.svg';
-	import delete_icon from '$lib/images/delete.svg';
-	import { employeeData } from '../../stores/MainStores';
+	import visibility_icon from '$lib/assets/visibility.svg';
+	import edit_icon from '$lib/assets/edit.svg';
+	import delete_icon from '$lib/assets/delete.svg';
+	import { workerData } from '../../stores/WorkerStore';
 	import { listToggle, modifyToggle, deleteToggle } from '../Shared/EmployeeFunction.svelte';
 </script>
 
@@ -13,23 +13,13 @@
 		<div class="col3">Name</div>
 		<div class="col4">Passport No</div>
 		<div class="col5">Passport Type</div>
-		<div class="col6">Father Name</div>
-		<div class="col7">Mother Name</div>
-		<!-- <div class="col4">NRC No</div> -->
-		<!-- <div class="col5">Gender</div>
-		<div class="col6">Birthday</div>
-		<div class="col7">Age</div>
-		<div class="col8">Address</div>
-		<div class="col9">Phone Number</div> -->
-		<!-- <div class="col10">Father Name</div> -->
-		<!-- <div class="col11">Religion</div> -->
-		<!-- <div class="col12">Education</div> -->
-		<!-- <div class="col13">Agent</div> -->
+		<div class="col6">Gender</div>
+		<div class="col7">Date of Birth</div>
 		<div class="col14">Actions</div>
 	</div>
 	<div class="hr" />
 	<ul>
-		{#each $employeeData as data, index}
+		{#each $workerData as data, index}
 			<div class={index % 2 === 0 ? 'row-alt' : 'row'}>
 				<div class="col1">
 					<input class="cb" type="checkbox" />
@@ -38,18 +28,8 @@
 				<div class="col3">{data.name}</div>
 				<div class="col4">{data.passportNo}</div>
 				<div class="col5">{data.passportType}</div>
-				<div class="col6">{data.fatherName}</div>
-				<div class="col7">{data.motherName}</div>
-				<!-- <div class="col4">{data.nrcNo}</div>
-				<div class="col5">{data.gender}</div>
-				<div class="col6">{data.dobString}</div>
-				<div class="col7">{data.age}</div>
-				<div class="col8">{data.address}</div>
-				<div class="col9">{data.phNo}</div> -->
-				<!-- <div class="col10">{data.fatherName}</div> -->
-				<!-- <div class="col11">{data.religion}</div> -->
-				<!-- <div class="col12">{data.education}</div> -->
-				<!-- <div class="col13">{data.agent}</div>-->
+				<div class="col6">{data.gender}</div>
+				<div class="col7">{data.dobString}</div>
 				<div class="col14">
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<div on:click={() => listToggle(data._id)}>
@@ -111,9 +91,15 @@
 		padding: 0 15px;
 		border-right: 1px solid #e9e9e9;
 	}
-	.col1, .col2, .col3, .col4, .col5, .col6, .col7 {
-		white-space: nowrap; 
-  		overflow: hidden;
+	.col1,
+	.col2,
+	.col3,
+	.col4,
+	.col5,
+	.col6,
+	.col7 {
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col1 {
@@ -145,38 +131,38 @@
 	} */
 	.col8 {
 		width: 200px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col9 {
 		width: 140px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col10 {
 		width: 220px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col11 {
 		width: 100px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col12 {
 		width: 130px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col13 {
 		width: 100px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col14 {
@@ -185,8 +171,8 @@
 		flex-direction: row;
 		gap: 8px;
 		width: 120px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.visibility,

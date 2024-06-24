@@ -19,8 +19,7 @@
 		if (response.status === 200) {
 			goto('/company');
 			location.reload();
-		}
-		else{
+		} else {
 			console.log('error');
 		}
 	};

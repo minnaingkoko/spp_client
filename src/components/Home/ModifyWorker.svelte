@@ -1,19 +1,16 @@
 <script lang="ts">
-	import { HPage1, HPage2, HPage3, HPage4 } from '../../stores/MainStores';
-	import { workerModifyData, workerSearchData, workerView, workerModify } from '../../stores/WorkerStore';
-
-	import close_icon from '$lib/assets/close.svg';
-
 	import { goto } from '$app/navigation';
 
+	import { HPage1, HPage2, HPage3, HPage4 } from '../../stores/MainStores';
+	import { workerModifyData, workerData, workerView, workerModify } from '../../stores/WorkerStore';
 	import { modifyToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
-	// import ModifyTextData from './ModifyTextData.svelte';
+
+	import close_icon from '$lib/assets/close.svg';
 
 	$: worker = $workerModifyData;
 
 	const modifyRequest = async (value: any) => {
 		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeModifyRequest', {
-
 		const response = await fetch('http://localhost:3000/api/employeeModifyRequest', {
 			method: 'PUT',
 			headers: {
@@ -21,17 +18,10 @@
 			},
 			body: JSON.stringify(worker)
 		});
-		console.log(response.status);
 		if (response.status === 200) {
-			const another_response = await fetch('http://localhost:3000/api/employeeModify', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ idNo: worker._id })
-			});
+			const another_response = await fetch('http://localhost:3000/api/employeeInfo');
 			const data = await another_response.json();
-			workerSearchData.update(() => [data]);
+			workerData.update(() => data);
 			workerView.update((currentValue) => !currentValue);
 			workerModify.update((currentValue) => !currentValue);
 		}
@@ -59,11 +49,26 @@
 				<label class="mg" for="passportType">Passport Type</label>
 				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.passportType} name="passportType" id="passportType" required />
 
-				<label class="mg" for="fatherName">Father Name:</label>
-				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.fatherName} name="fatherName" id="fatherName" required />
+				<label class="mg" for="gender">Gender:</label>
+				<select class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" bind:value={worker.gender}>
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+				</select>
 
-				<label class="mg" for="name">Mother Name:</label>
-				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.motherName} name="motherName" id="motherName" required />
+				<label class="mg" for="dob">Date of Birth:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="date" bind:value={worker.dob} name="dob" id="dob" />
+
+				<label class="mg" for="ppIssueDate">Date of Issue:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="date" bind:value={worker.ppIssueDate} name="ppIssueDate" id="ppIssueDate" />
+
+				<label class="mg" for="ppExpireDate">Date of Expire:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="date" bind:value={worker.ppExpireDate} name="ppExpireDate" id="ppExpireDate" />
+
+				<label class="mg" for="pob">Place of Birth:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.pob} name="pob" id="pob" />
+
+				<label class="mg" for="authority">Authority:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.authority} name="authority" id="authority" />
 			{/if}
 
 			<div class="addForm-bot absolute bottom-0 bg-[#e5e5e5] w-[100%] h-[75px] flex justify-end items-center gap-[12px] rounded-[4px]">

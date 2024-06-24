@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	import { companyView, companyAdd, companySearch, CPage1, CPage2, CPage3, assign, fullImg, fullImgUrl, companyModifyData, companyModify, companyRemove_id, companyRemove, employeeData, employeeView, employeeList, employeeList_id, assignData } from '../../stores/MainStores';
 
-	let Page1:any, Page2:any, Page3:any, Page4:any;
+	let Page1: any, Page2: any, Page3: any, Page4: any;
 
 	CPage1.subscribe((value) => {
 		Page1 = value;
@@ -13,7 +13,7 @@
 		Page3 = value;
 	});
 
-	let assignValue:any;
+	let assignValue: any;
 	assignData.subscribe((value) => {
 		assignValue = value;
 	});
@@ -24,7 +24,7 @@
 		CPage3.update(() => false);
 	};
 
-    export const toggleImg = () => {
+	export const toggleImg = () => {
 		fullImg.update(() => false);
 		fullImgUrl.update(() => '');
 	};
@@ -85,7 +85,7 @@
 	export const assignToggle = (value: any) => {
 		if (assignValue.includes(value)) {
 			return;
-  		}
+		}
 		assignData.update(() => [...assignValue, value]);
 	};
 

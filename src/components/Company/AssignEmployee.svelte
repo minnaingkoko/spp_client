@@ -143,7 +143,7 @@
 		cursor: pointer;
 		transition: 0.3s;
 	}
-	.visibility:hover{
+	.visibility:hover {
 		opacity: 0.6;
 	}
 </style>

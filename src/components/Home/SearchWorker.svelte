@@ -1,20 +1,20 @@
 <script lang="ts">
-    import { employeeSearch, workerSearchData } from '../../stores/MainStores'
-	import close_icon from '$lib/images/close.svg';
-    import { goto } from '$app/navigation';
+	import { workerSearch, workerSearchData } from '../../stores/WorkerStore';
+	import close_icon from '$lib/assets/close.svg';
+	import { goto } from '$app/navigation';
 	import { searchToggle } from '../Shared/EmployeeFunction.svelte';
 
 	$: condition1Name = '';
 	$: condition1Value = '';
 
-    const searchRequest = async () => {
+	const searchRequest = async () => {
 		// const response = await fetch('https://shan-pyae-phyo.onrender.com/api/employeeUpload', {
 		const response = await fetch('http://localhost:3000/api/searchEmployee', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({[condition1Name]: condition1Value})
+			body: JSON.stringify({ [condition1Name]: condition1Value })
 		});
 
 		const data = await response.json();
@@ -23,10 +23,9 @@
 		searchToggle();
 		goto('/search_result');
 	};
-
 </script>
 
-<div class="add-form" style="display: {$employeeSearch ? 'block' : 'none'};">
+<div class="add-form" style="display: {$workerSearch ? 'block' : 'none'};">
 	<div class="addForm-heading">
 		<div class="text">Search Worker</div>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -36,21 +35,21 @@
 	</div>
 	<hr />
 	<form class="addForm" on:submit|preventDefault={() => searchRequest()}>
-            <label class="mg" for="conditionCount">Condition Count:</label>
-            <select class="add_input" value='1'>
-				<option value="1">1</option>
-				<option value="2">2</option>
-                <option value="3">3</option>
-			</select>
+		<label class="mg" for="conditionCount">Condition Count:</label>
+		<select class="add_input" value="1">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
 
-			<label class="mg" for="condition1Name">Searched By (Condition 1):</label>
-			<select class="add_input" bind:value={condition1Name}>
-				<option value="name">Name</option>
-				<option value="passportNo">Passport No</option>
-			</select>
+		<label class="mg" for="condition1Name">Searched By (Condition 1):</label>
+		<select class="add_input" bind:value={condition1Name}>
+			<option value="name">Name</option>
+			<option value="passportNo">Passport No</option>
+		</select>
 
-			<label class="mg" for="condition1Value">Condition 1 Value:</label>
-			<input class="add_input" type="text" bind:value={condition1Value} name="condition1Value" id="condition1Value" />
+		<label class="mg" for="condition1Value">Condition 1 Value:</label>
+		<input class="add_input" type="text" bind:value={condition1Value} name="condition1Value" id="condition1Value" />
 
 		<div class="addForm-bot">
 			<!-- {#if $HPage1 === true}
@@ -59,7 +58,7 @@
 				<div class="bg-[#42a5f5] text-white" on:click={Previous}>Previous</div>
 			{/if} -->
 			<!-- {#if $HPage4 === true} -->
-				<button class="submit-btn" type="submit">Search</button>
+			<button class="submit-btn" type="submit">Search</button>
 			<!-- {:else if $HPage4 === false}
 				<div class="next-btn" on:click={Next}>Next</div>
 			{/if} -->

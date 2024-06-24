@@ -1,7 +1,9 @@
-<script lang="ts" context='module'>
-    import { employeeView, employeeAdd, employeeSearch, HPage1, HPage2, HPage3, HPage4, fullImg, fullImgUrl, employeeList_id, employeeModify, employeeModifyData, employeeList, employeeRemove_id, employeeRemove, fullImgName, fullImgType } from '../../stores/MainStores';
+<script lang="ts" context="module">
+	import { HPage1, HPage2, HPage3, HPage4, fullImg, fullImgUrl, fullImgName, fullImgType } from '../../stores/MainStores';
 
-	let Page1:any, Page2:any, Page3:any, Page4:any;
+	import { workerView, workerAdd, workerSearch, workerList_id, workerModify, workerModifyData, workerList, workerRemove_id, workerRemove } from '../../stores/WorkerStore';
+
+	let Page1: any, Page2: any, Page3: any, Page4: any;
 
 	HPage1.subscribe((value) => {
 		Page1 = value;
@@ -16,35 +18,35 @@
 		Page4 = value;
 	});
 
-    const resetPage = () => {
+	const resetPage = () => {
 		HPage1.update(() => true);
 		HPage2.update(() => false);
 		HPage3.update(() => false);
 		HPage4.update(() => false);
 	};
 
-    export const searchToggle = () => {
+	export const searchToggle = () => {
 		resetPage();
-		employeeView.update((currentValue: any) => !currentValue);
-		employeeSearch.update((currentValue: any) => !currentValue);
+		workerView.update((currentValue: any) => !currentValue);
+		workerSearch.update((currentValue: any) => !currentValue);
 	};
 
 	export const addToggle: () => void = () => {
 		resetPage();
-		employeeView.update((currentValue: any) => !currentValue);
-		employeeAdd.update((currentValue: any) => !currentValue);
+		workerView.update((currentValue: any) => !currentValue);
+		workerAdd.update((currentValue: any) => !currentValue);
 	};
 
-    export const toggleImg = () => {
+	export const toggleImg = () => {
 		fullImg.update(() => false);
-		fullImgUrl.update(() => '')
-	}
+		fullImgUrl.update(() => '');
+	};
 
 	export const listToggle = (value: any) => {
 		resetPage();
-		employeeList_id.update(() => value);
-		employeeView.update((currentValue) => !currentValue);
-		employeeList.update((currentValue) => !currentValue);
+		workerList_id.update(() => value);
+		workerView.update((currentValue) => !currentValue);
+		workerList.update((currentValue) => !currentValue);
 	};
 
 	const modifyPost = async (value: any) => {
@@ -61,31 +63,31 @@
 		console.log(data);
 
 		// Update the store with the fetched data
-		employeeModifyData.set(data);
+		workerModifyData.set(data);
 	};
 
 	export const modifyToggle = (value: any) => {
 		// console.log(value);
 		resetPage();
 		modifyPost(value);
-		employeeList_id.update(() => value);
-		employeeView.update((currentValue) => !currentValue);
-		employeeModify.update((currentValue) => !currentValue);
+		workerList_id.update(() => value);
+		workerView.update((currentValue) => !currentValue);
+		workerModify.update((currentValue) => !currentValue);
 	};
 
 	export const deleteToggle = (value: any) => {
-		employeeRemove_id.update(() => value);
-		employeeView.update((currentValue) => !currentValue);
-		employeeRemove.update((currentValue) => !currentValue);
+		workerRemove_id.update(() => value);
+		workerView.update((currentValue) => !currentValue);
+		workerRemove.update((currentValue) => !currentValue);
 	};
 
-	export const fullImage = (url: any, name: any, typ:any) => {
+	export const fullImage = (url: any, name: any, typ: any) => {
 		fullImg.update((currentValue) => !currentValue);
-		fullImgUrl.update(() => url)
-		fullImgName.update(() => name)
-		fullImgType.update(() => typ)
-	}
-	
+		fullImgUrl.update(() => url);
+		fullImgName.update(() => name);
+		fullImgType.update(() => typ);
+	};
+
 	export const Next = () => {
 		if (Page1 === true && Page2 === false && Page3 === false && Page4 === false) {
 			HPage1.update(() => false);

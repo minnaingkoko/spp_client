@@ -5,24 +5,7 @@ export const fullImgUrl = writable('');
 export const fullImgName = writable('');
 export const fullImgType = writable('');
 
-//employee data
-
-export const employeeData = writable<Array<any>>([]);
-
-export const employeeSearch = writable(false);
-export const workerSearchData = writable<any>(null);
-
-export const employeeAdd = writable(false);
-export const employeeView = writable(false);
-
-export const employeeRemove = writable(false);
-export const employeeRemove_id = writable<any>(null);
-
-export const employeeModify = writable(false);
-export const employeeModifyData = writable<any>(null);
-
-export const employeeList = writable(false);
-export const employeeList_id = writable<any>(null);
+export const success = writable(false);
 
 export const HPage1 = writable(true);
 export const HPage2 = writable(false);

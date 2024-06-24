@@ -9,7 +9,7 @@
 	.mg {
 		margin: 0 30px;
 	}
-    input {
+	input {
 		border: 1px solid gray;
 	}
 	.add_input {

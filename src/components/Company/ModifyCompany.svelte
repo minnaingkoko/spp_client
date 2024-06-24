@@ -34,17 +34,17 @@
 		</div>
 		<hr />
 		<form class="addForm" action="/api/companyModifyRequest" enctype="multipart/form-data" method="POST" on:submit|preventDefault={() => modifyRequest(company._id)}>
-		{#if $CPage1}
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<!-- <div class="add-employee" on:click={assignEmployee}>Add Employee</div> -->
-			<ModifyTextData text='Company Name:' value='companyName' dataF={company.companyName} />
-			<ModifyTextData text='Company Address:' value='companyAddress' dataF={company.companyAddress} />
-			<ModifyTextData text='Post Code:' value='postCode' dataF={company.postCode} />
-			<ModifyTextData text='Demand Male:' value='demandMale' dataF={company.demandTotal.male} />
-			<ModifyTextData text='Demand Female:' value='demandFemale' dataF={company.demandTotal.female} />
-			<ModifyTextData text='Company Phone Number:' value='companyPhNo' dataF={company.companyPhNo} />
+			{#if $CPage1}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<!-- <div class="add-employee" on:click={assignEmployee}>Add Employee</div> -->
+				<ModifyTextData text="Company Name:" value="companyName" dataF={company.companyName} />
+				<ModifyTextData text="Company Address:" value="companyAddress" dataF={company.companyAddress} />
+				<ModifyTextData text="Post Code:" value="postCode" dataF={company.postCode} />
+				<ModifyTextData text="Demand Male:" value="demandMale" dataF={company.demandTotal.male} />
+				<ModifyTextData text="Demand Female:" value="demandFemale" dataF={company.demandTotal.female} />
+				<ModifyTextData text="Company Phone Number:" value="companyPhNo" dataF={company.companyPhNo} />
 
-			<!-- <label class="mg" for="demandLetterScan">Demand Letter Scan:</label>
+				<!-- <label class="mg" for="demandLetterScan">Demand Letter Scan:</label>
 			<input type="file" on:change={(event) => handleFileChange(event, companyData.demandLetterScan)} class="form-control mg" name="demandLetterScan" id="demandLetterScan" required />
 
 			<label class="mg" for="KSMScan">KSM Scan:</label>
@@ -52,10 +52,10 @@
 
 			<label class="mg" for="companyProfileScan">Company Profile Scan:</label>
 			<input type="file" on:change={(event) => handleFileChange(event, companyData.companyProfileScan)} class="form-control mg" name="companyProfileScan" id="formFile" multiple /> -->
-		{/if}
+			{/if}
 
-		{#if $CPage2}
-			<!-- <label class="mg" for="callingCopyScan">Calling Copy Scan:</label>
+			{#if $CPage2}
+				<!-- <label class="mg" for="callingCopyScan">Calling Copy Scan:</label>
 			<input type="file" on:change={(event) => handleFileChange(event, companyData.callingCopyScan)} class="form-control mg" name="callingCopyScan" id="formFile" multiple />
 
 			<label class="mg" for="callingOrgScan">Calling Original Scan:</label>
@@ -63,21 +63,21 @@
 
 			<label class="mg" for="notaryScan">Notary Scan:</label>
 			<input type="file" on:change={(event) => handleFileChange(event, companyData.notaryScan)} class="form-control mg" name="notaryScan" id="formFile" multiple /> -->
-		{/if}
-		<div class="addForm-bot">
-			{#if $CPage1 === true}
-				<div />
-			{:else if $CPage1 === false}
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<div class="bg-[#42a5f5] text-white" on:click={Previous}>Previous</div>
 			{/if}
-			{#if $CPage2 === true}
-				<button class="submit-btn" type="submit">Submit</button>
-			{:else if $CPage2 === false}
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<div class="next-btn" on:click={Next}>Next</div>
-			{/if}
-		</div>
+			<div class="addForm-bot">
+				{#if $CPage1 === true}
+					<div />
+				{:else if $CPage1 === false}
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
+					<div class="bg-[#42a5f5] text-white" on:click={Previous}>Previous</div>
+				{/if}
+				{#if $CPage2 === true}
+					<button class="submit-btn" type="submit">Submit</button>
+				{:else if $CPage2 === false}
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
+					<div class="next-btn" on:click={Next}>Next</div>
+				{/if}
+			</div>
 		</form>
 	</div>
 {/if}

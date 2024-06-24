@@ -111,38 +111,38 @@
 	}
 	.col1 {
 		width: 100px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col2 {
 		width: 200px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col3 {
 		width: 170px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col4 {
 		width: 180px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col5 {
 		width: 150px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col6 {
 		width: 200px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col14 {
@@ -151,8 +151,8 @@
 		flex-direction: row;
 		gap: 8px;
 		width: 120px;
-		white-space: nowrap; 
-  		overflow: hidden;
+		white-space: nowrap;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.visibility,
