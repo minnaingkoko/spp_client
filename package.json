@@ -1,5 +1,5 @@
 {
-	"name": "my-app",
+	"name": "spp_client",
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "vite dev",
