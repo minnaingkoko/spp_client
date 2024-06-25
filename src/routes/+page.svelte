@@ -28,7 +28,11 @@
 	onMount(async () => {
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			console.log(PUBLIC_SERVER_API_KEY)
+			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeInfo`);
+			const data = await response.json();
+
+			// Update the store with the fetched data
+			workerData.set(data);
 		} else {
 			// For development
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);

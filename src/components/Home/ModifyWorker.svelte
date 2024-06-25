@@ -12,7 +12,20 @@
 	const modifyRequest = async (value: any) => {
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			console.log(PUBLIC_SERVER_API_KEY);
+			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeModifyRequest`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(worker)
+			});
+			if (response.status === 200) {
+				const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
+				const data = await another_response.json();
+				workerData.update(() => data);
+				workerView.update((currentValue) => !currentValue);
+				workerModify.update((currentValue) => !currentValue);
+			}
 		} else {
 			// For development
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeModifyRequest`, {
