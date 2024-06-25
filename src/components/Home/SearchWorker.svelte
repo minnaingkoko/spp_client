@@ -65,7 +65,7 @@
 				<div class="bg-[#42a5f5] text-white" on:click={Previous}>Previous</div>
 			{/if} -->
 			<!-- {#if $HPage4 === true} -->
-			<button class="submit-btn" type="submit">Search</button>
+			<button class="submit-btn bg-[#00BFA6] hover:bg-[#00bfa6da]" type="submit">Search</button>
 			<!-- {:else if $HPage4 === false}
 				<div class="next-btn" on:click={Next}>Next</div>
 			{/if} -->
@@ -92,7 +92,7 @@
 	}
 	.submit-btn,
 	.next-btn {
-		@apply bg-[#4aa84d] text-white;
+		@apply text-white;
 	}
 	.submit-btn {
 		@apply flex justify-center items-center w-[100px] h-[33px] cursor-pointer;

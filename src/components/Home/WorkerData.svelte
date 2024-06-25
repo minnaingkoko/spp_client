@@ -15,6 +15,12 @@
 		<div class="col5">Passport Type</div>
 		<div class="col6">Gender</div>
 		<div class="col7">Date of Birth</div>
+		<div class="col7">Age</div>
+		<div class="col7">Date of Issue</div>
+		<div class="col7">Date of Expire</div>
+		<div class="col7">Place of Birth</div>
+		<div class="col7">Authority</div>
+
 		<div class="col14">Actions</div>
 	</div>
 	<div class="hr" />
@@ -30,6 +36,11 @@
 				<div class="col5">{data.passportType}</div>
 				<div class="col6">{data.gender}</div>
 				<div class="col7">{data.dobString}</div>
+				<div class="col7">{data.age}</div>
+				<div class="col7">{data.ppIssueDateString}</div>
+				<div class="col7">{data.ppExpireDateString}</div>
+				<div class="col7">{data.pob}</div>
+				<div class="col7">{data.authority}</div>
 				<div class="col14">
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<div on:click={() => listToggle(data._id)}>
@@ -115,13 +126,13 @@
 		width: 120px;
 	}
 	.col5 {
-		width: 180px;
+		width: 120px;
 	}
 	.col6 {
-		width: 180px;
+		width: 100px;
 	}
 	.col7 {
-		width: 180px;
+		width: 120px;
 	}
 	/* .col7 {
 		width: 60px;

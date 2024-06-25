@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-
-	import { HPage1, HPage2, HPage3, HPage4 } from '../../stores/MainStores';
+	import { HPage1, HPage2 } from '../../stores/MainStores';
 	import { workerModifyData, workerData, workerView, workerModify } from '../../stores/WorkerStore';
 	import { modifyToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 
@@ -53,8 +51,11 @@
 				<label class="mg" for="passportNo">Passport No:</label>
 				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.passportNo} name="passportNo" id="passportNo" required />
 
-				<label class="mg" for="passportType">Passport Type</label>
-				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.passportType} name="passportType" id="passportType" required />
+				<label class="mg" for="passportType">Passport Type:</label>
+				<select class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" bind:value={worker.passportType}>
+					<option value="PJ">PJ</option>
+					<option value="PV">PV</option>
+				</select>
 
 				<label class="mg" for="gender">Gender:</label>
 				<select class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" bind:value={worker.gender}>
@@ -78,23 +79,61 @@
 				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.authority} name="authority" id="authority" />
 			{/if}
 
+			{#if $HPage2}
+				<label class="mg" for="fatherName">Father Name:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.fatherName} name="fatherName" id="fatherName" />
+
+				<label class="mg" for="motherName">Mother Name:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.motherName} name="motherName" id="motherName" />
+
+				<label class="mg" for="address">Address:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.address} name="address" id="address" />
+
+				<label class="mg" for="nrcNo">NRC No:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.nrcNo} name="nrcNo" id="nrcNo" />
+
+				<label class="mg" for="phNo">Phone Number:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.phNo} name="phNo" id="phNo" />
+
+				<label class="mg" for="agent">Agent:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.agent} name="agent" id="agent" />
+
+				<label class="mg" for="companyName">Company Name:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.companyName} name="companyName" id="companyName" />
+
+				<label class="mg" for="airPlaneNo">Airplane No:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="text" bind:value={worker.airPlaneNo} name="airPlaneNo" id="airPlaneNo" />
+
+				<label class="mg" for="departureDate">Departure Date:</label>
+				<input class="ml-[30px] mr-[30px] mb-[15px] h-[34px]" type="date" bind:value={worker.departureDate} name="departureDate" id="departureDate" />
+			{/if}
+
 			<div class="addForm-bot absolute bottom-0 bg-[#e5e5e5] w-[100%] h-[75px] flex justify-end items-center gap-[12px] rounded-[4px]">
-				<button class="flex justify-center items-center w-[100px] h-[33px] cursor-pointer border-none bg-[#4aa84d] text-white" type="submit">Submit</button>
+				{#if $HPage1 === true}
+					<div />
+				{:else if $HPage1 === false}
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
+					<div class="bg-[#42a5f5] text-white" on:click={Previous}>Previous</div>
+				{/if}
+				{#if $HPage2 === true}
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
+					<button class="bg-[#00BFA6] hover:bg-[#00bfa6da] text-white flex justify-center items-center w-[100px] h-[33px] cursor-pointer border-none" type="submit">Submit</button>
+				{:else if $HPage2 === false}
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
+					<div class="next-btn" on:click={Next}>Next</div>
+				{/if}
 			</div>
 		</form>
 	</div>
 {/if}
 
 <style>
-	input {
-		border: 1px solid gray;
-	}
-	.mg {
-		margin: 0 30px;
-	}
 	input,
 	select {
 		border: 1px solid gray;
+	}
+	.next-btn {
+		@apply bg-[#4aa84d] text-white;
 	}
 	.addForm-heading {
 		@apply w-[100%] h-[66px] flex flex-row justify-between items-center text-[18px] font-[500] text-black;
@@ -102,10 +141,20 @@
 		padding: 0 30px;
 	}
 	.addForm-bot {
-		border-radius: 0 0 4px 4px;
+		@apply flex justify-end items-center gap-[12px] rounded-[4px];
 		padding: 0 30px;
+	}
+	.addForm-bot div {
+		@apply flex justify-center items-center w-[100px] h-[33px] cursor-pointer;
+	}
+	.addForm-bot {
+		@apply absolute bottom-0 bg-[#e5e5e5] w-[100%] h-[75px];
+		border-radius: 0 0 4px 4px;
+	}
+	.addForm {
+		@apply flex flex-col mt-[20px] mb-[95px];
 	}
 	.mg {
 		margin: 0 30px;
-	}
+	}	
 </style>

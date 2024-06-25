@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-
-	import { HPage1, HPage2, HPage3, HPage4 } from '../../stores/MainStores';
+	import { HPage1, HPage2, } from '../../stores/MainStores';
 	import { workerData, workerView, workerAdd } from '../../stores/WorkerStore';
 	import { addToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 
@@ -162,7 +160,7 @@
 				<button class="bg-[#00BFA6] hover:bg-[#00bfa6da] text-white flex justify-center items-center w-[100px] h-[33px] cursor-pointer border-none" type="submit">Submit</button>
 			{:else if $HPage2 === false}
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<div class="next-btn" on:click={Next}>Next</div>
+				<div class="next-btn bg-[#00BFA6] hover:bg-[#00bfa6da]" on:click={Next}>Next</div>
 			{/if}
 		</div>
 	</form>
@@ -187,7 +185,7 @@
 	}
 	.submit-btn,
 	.next-btn {
-		@apply bg-[#4aa84d] text-white;
+		@apply text-white;
 	}
 	.addForm-heading {
 		@apply w-[100%] h-[66px] flex flex-row justify-between items-center text-[18px] font-[500] text-black;

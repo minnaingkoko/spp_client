@@ -49,6 +49,13 @@
 		<div class="col5 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Passport Type</div>
 		<div class="col6 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Gender</div>
 		<div class="col7 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Date of Birth</div>
+		<div class="col7 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Age</div>
+
+		<div class="col7 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Date of Issue</div>
+		<div class="col7 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Date of Expire</div>
+		<div class="col7 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Place of Birth</div>
+		<div class="col7 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Authority</div>
+
 		<div class="col14 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Actions</div>
 	</div>
 	<div class="w-[100%] h-[2px] bg-[#e9e9e9]" />
@@ -64,6 +71,11 @@
 				<div class="col5">{data.passportType}</div>
 				<div class="col6">{data.gender}</div>
 				<div class="col7">{data.dobString}</div>
+				<div class="col7">{data.age}</div>
+				<div class="col7">{data.ppIssueDateString}</div>
+				<div class="col7">{data.ppExpireDateString}</div>
+				<div class="col7">{data.pob}</div>
+				<div class="col7">{data.authority}</div>
 				<div class="col14">
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<div on:click={() => listToggle(data._id)}>
@@ -132,13 +144,13 @@
 		width: 120px;
 	}
 	.col5 {
-		width: 180px;
+		width: 120px;
 	}
 	.col6 {
-		width: 180px;
+		width: 100px;
 	}
 	.col7 {
-		width: 180px;
+		width: 120px;
 	}
 	.col14 {
 		border-right: 0 !important;

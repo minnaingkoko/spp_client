@@ -60,12 +60,12 @@
 		</div>
 		<div class="flex flex-row gap-[16px]">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<div class="flex justify-center items-center gap-[5px] w-[164px] h-[33px] text-white duration-300 bg-[#F9A826] rounded-[4px] text-[13px] cursor-pointer" on:click={manageWorkers}>
+			<div class="flex justify-center items-center gap-[5px] w-[164px] h-[33px] text-white duration-300 bg-[#F9A826] hover:bg-[#f9a826de] rounded-[4px] text-[13px] cursor-pointer" on:click={manageWorkers}>
 				<img class="edit" src={edit_icon} alt="" width="20px" height="20px" />
 				<span>List All Workers</span>
 			</div>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<div class="flex justify-center items-center gap-[5px] w-[164px] h-[33px] text-white duration-300 bg-[#42a5f5] rounded-[4px] text-[13px] cursor-pointer" on:click={searchToggle}>
+			<div class="flex justify-center items-center gap-[5px] w-[164px] h-[33px] text-white duration-300 bg-[#00B0FF] hover:bg-[#00aeffde] rounded-[4px] text-[13px] cursor-pointer" on:click={searchToggle}>
 				<img class="edit" src={search_icon} alt="" width="20px" height="20px" />
 				<span>Search Worker</span>
 			</div>
