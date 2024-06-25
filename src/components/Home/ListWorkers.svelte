@@ -1,13 +1,10 @@
 <script lang="ts">
-	import { HPage1, HPage2, HPage3, HPage4, fullImg, fullImgUrl, fullImgName, fullImgType } from '../../stores/MainStores';
-	import { workerData, workerView, workerList, workerList_id } from '../../stores/WorkerStore';
+	import { workerData, workerList, workerList_id } from '../../stores/WorkerStore';
 
-	console.log(workerData);
 	import close_icon from '$lib/assets/close.svg';
-	import { listToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 
+	import { listToggle, } from '../Shared/EmployeeFunction.svelte';
 	import WorkerTextData from './WorkerTextData.svelte';
-	import WorkerScanData from './WorkerScanData.svelte';
 </script>
 
 <div class="absolute top-[30px] w-[400px] bg-white z-[12] rounded-[4px]" style="display: {$workerList ? 'block' : 'none'};">
@@ -19,7 +16,7 @@
 		</div>
 	</div>
 	<hr />
-	{#each $workerData as data, index}
+	{#each $workerData as data}
 		{#if data._id === $workerList_id}
 			<form class="flex flex-col gap-[16px] mt-[20px] mb-[30px]">
 				<!-- {#if $HPage1} -->
@@ -29,10 +26,20 @@
 				<WorkerTextData text="Gender:" value={data.gender} />
 				<WorkerTextData text="Date of Birth:" value={data.dobString} /> 
 				<WorkerTextData text="Age:" value={data.age} />
-				<WorkerTextData text="Date of Birth:" value={data.ppIssueDateString} />
-				<WorkerTextData text="Date of Birth:" value={data.ppExpireDateString} />
+				<WorkerTextData text="Date of Issue:" value={data.ppIssueDateString} />
+				<WorkerTextData text="Date of Expire:" value={data.ppExpireDateString} />
 				<WorkerTextData text="Place of Birth:" value={data.pob} />
 				<WorkerTextData text="Authority:" value={data.authority} />
+
+				<WorkerTextData text="Father Name:" value={data.fatherName} />
+				<WorkerTextData text="Mother Name:" value={data.motherName} />
+				<WorkerTextData text="Address:" value={data.address} />
+				<WorkerTextData text="NRC No:" value={data.nrcNo} />
+				<WorkerTextData text="Phone Number:" value={data.phNo} />
+				<WorkerTextData text="Agent:" value={data.agent} />
+				<WorkerTextData text="Company Name:" value={data.companyName} />
+				<WorkerTextData text="Airplane No:" value={data.airPlaneNo} />
+				<WorkerTextData text="Departure Date:" value={data.departureDateString} />
 			</form>
 		{:else}
 			<div />
@@ -44,9 +51,5 @@
 	.addForm-heading {
 		border-radius: 4px 4px 0 0;
 		padding: 0 30px;
-	}
-	.addForm-bot {
-		padding: 0 30px;
-		border-radius: 0 0 4px 4px;
 	}
 </style>

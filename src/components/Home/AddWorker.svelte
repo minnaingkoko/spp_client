@@ -34,6 +34,17 @@
 				workerDataType.ppExpireDate = null;
 				workerDataType.pob = '';
 				workerDataType.authority = '';
+
+				workerDataType.fatherName = '';
+				workerDataType.motherName = '';
+				workerDataType.address = '';
+				workerDataType.nrcNo = '';
+				workerDataType.phNo = '';
+				workerDataType.agent = '';
+				workerDataType.companyName = '';
+				workerDataType.airPlaneNo = '';
+				workerDataType.departureDate = null;
+
 				const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
 				const data = await another_response.json();
 				workerData.update(() => data);
@@ -73,6 +84,7 @@
 	</div>
 	<hr />
 	<form class="addForm" on:submit|preventDefault={() => addRequest()}>
+		{#if $HPage1}
 		<label class="mg" for="name">Name:</label>
 		<input class="add_input" type="text" bind:value={workerDataType.name} name="name" id="name" required />
 
@@ -105,9 +117,53 @@
 
 		<label class="mg" for="authority">Authority:</label>
 		<input class="add_input" type="text" bind:value={workerDataType.authority} name="authority" id="authority" />
+		{/if}
+
+		<!-- more data -->
+
+		{#if $HPage2}
+		<label class="mg" for="fatherName">Father Name:</label>
+		<input class="add_input" type="text" bind:value={workerDataType.fatherName} name="fatherName" id="fatherName" />
+
+		<label class="mg" for="motherName">Mother Name:</label>
+		<input class="add_input" type="text" bind:value={workerDataType.motherName} name="motherName" id="motherName" />
+
+		<label class="mg" for="address">Address:</label>
+		<input class="add_input" type="text" bind:value={workerDataType.address} name="address" id="address" />
+		
+		<label class="mg" for="nrcNo">NRC No:</label>
+		<input class="add_input" type="text" bind:value={workerDataType.nrcNo} name="nrcNo" id="nrcNo" />
+		
+		<label class="mg" for="phNo">Phone Number:</label>
+		<input class="add_input" type="text" bind:value={workerDataType.phNo} name="phNo" id="phNo" />
+		
+		<label class="mg" for="agent">Agent:</label>
+		<input class="add_input" type="text" bind:value={workerDataType.agent} name="agent" id="agent" />
+		
+		<label class="mg" for="companyName">Company Name:</label>
+		<input class="add_input" type="text" bind:value={workerDataType.companyName} name="companyName" id="companyName" />
+		
+		<label class="mg" for="airPlaneNo">Airplane No:</label>
+		<input class="add_input" type="text" bind:value={workerDataType.airPlaneNo} name="airPlaneNo" id="airPlaneNo" />
+		
+		<label class="mg" for="departureDate">Departure Date:</label>
+		<input class="add_input" type="date" bind:value={workerDataType.departureDate} name="departureDate" id="departureDate" />
+		{/if}
 
 		<div class="addForm-bot">
-			<button class="bg-[#00BFA6] hover:bg-[#00bfa6da] text-white flex justify-center items-center w-[100px] h-[33px] cursor-pointer border-none" type="submit">Submit</button>
+			{#if $HPage1 === true}
+				<div />
+			{:else if $HPage1 === false}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<div class="bg-[#42a5f5] text-white" on:click={Previous}>Previous</div>
+			{/if}
+			{#if $HPage2 === true}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<button class="bg-[#00BFA6] hover:bg-[#00bfa6da] text-white flex justify-center items-center w-[100px] h-[33px] cursor-pointer border-none" type="submit">Submit</button>
+			{:else if $HPage2 === false}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<div class="next-btn" on:click={Next}>Next</div>
+			{/if}
 		</div>
 	</form>
 </div>
