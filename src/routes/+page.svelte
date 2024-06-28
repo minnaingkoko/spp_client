@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	import { addToggle, searchToggle, toggleImg } from '../components/Shared/EmployeeFunction.svelte';
 	import { fullImg, fullImgUrl, fullImgName, fullImgType } from '../stores/MainStores';
@@ -16,13 +17,17 @@
 	import download_icon from '$lib/assets/download.svg';
 	import add_icon from '$lib/assets/add_circle.svg';
 	import search_icon from '$lib/assets/search.svg';
+	import edit_icon from '$lib/assets/edit_alt.svg';
 
 	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public'
+
+	const manageCompanies = () => {
+		goto('/company');
+	};
 
 	onMount(async () => {
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			
 			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeInfo`);
 			const data = await response.json();
 
@@ -72,7 +77,7 @@
 		<ListWorkers />
 	</div>
 
-	<nav class="px-[30px] py-[16px] flex bg-[#f53f3f] w-[100%] h-[65px] justify-between items-center">
+	<nav class="px-[30px] py-[16px] flex bg-[#536DFE] w-[100%] h-[65px] justify-between items-center">
 		<div class="text-[white] text-[24px]">
 			Manage <b>Workers</b>
 		</div>
