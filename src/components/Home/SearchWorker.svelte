@@ -12,19 +12,20 @@
 	const searchRequest = async () => {
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/searchEmployee`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ [condition1Name]: condition1Value })
-			});
+			
+			// const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/searchEmployee`, {
+			// 	method: 'POST',
+			// 	headers: {
+			// 		'Content-Type': 'application/json'
+			// 	},
+			// 	body: JSON.stringify({ [condition1Name]: condition1Value })
+			// });
 
-			const data = await response.json();
-			console.log(data);
-			workerSearchData.set(data);
-			searchToggle();
-			goto('/search_result');
+			// const data = await response.json();
+			// console.log(data);
+			// workerSearchData.set(data);
+			// searchToggle();
+			// goto('/search_result');
 		} else {
 			// For development
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/searchEmployee`, {

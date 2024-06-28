@@ -12,41 +12,42 @@
 	const addRequest = async () => {
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeUpload`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(workerDataType)
-			});
-			if (response.status === 200) {
-				workerDataType.name = '';
-				workerDataType.passportNo = '';
-				workerDataType.passportType = '';
-				workerDataType.gender = '';
-				workerDataType.dob = null;
-				workerDataType.ppIssueDate = null;
-				workerDataType.ppExpireDate = null;
-				workerDataType.pob = '';
-				workerDataType.authority = '';
+			
+			// const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeUpload`, {
+			// 	method: 'POST',
+			// 	headers: {
+			// 		'Content-Type': 'application/json'
+			// 	},
+			// 	body: JSON.stringify(workerDataType)
+			// });
+			// if (response.status === 200) {
+			// 	workerDataType.name = '';
+			// 	workerDataType.passportNo = '';
+			// 	workerDataType.passportType = '';
+			// 	workerDataType.gender = '';
+			// 	workerDataType.dob = null;
+			// 	workerDataType.ppIssueDate = null;
+			// 	workerDataType.ppExpireDate = null;
+			// 	workerDataType.pob = '';
+			// 	workerDataType.authority = '';
+			// 	workerDataType.fatherName = '';
+			// 	workerDataType.motherName = '';
+			// 	workerDataType.address = '';
+			// 	workerDataType.nrcNo = '';
+			// 	workerDataType.phNo = '';
+			// 	workerDataType.agent = '';
+			// 	workerDataType.companyName = '';
+			// 	workerDataType.airPlaneNo = '';
+			// 	workerDataType.departureDate = null;
 
-				workerDataType.fatherName = '';
-				workerDataType.motherName = '';
-				workerDataType.address = '';
-				workerDataType.nrcNo = '';
-				workerDataType.phNo = '';
-				workerDataType.agent = '';
-				workerDataType.companyName = '';
-				workerDataType.airPlaneNo = '';
-				workerDataType.departureDate = null;
-
-				const another_response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeInfo`);
-				const data = await another_response.json();
-				workerData.update(() => data);
-				workerView.update((currentValue) => !currentValue);
-				workerAdd.update((currentValue) => !currentValue);
-			}
+			// 	const another_response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeInfo`);
+			// 	const data = await another_response.json();
+			// 	workerData.update(() => data);
+			// 	workerView.update((currentValue) => !currentValue);
+			// 	workerAdd.update((currentValue) => !currentValue);
+			// }
 		} else {
+			
 			// For development
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeUpload`, {
 				method: 'POST',
@@ -55,6 +56,7 @@
 				},
 				body: JSON.stringify(workerDataType)
 			});
+			
 			if (response.status === 200) {
 				workerDataType.name = '';
 				workerDataType.passportNo = '';
@@ -78,6 +80,8 @@
 
 				const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
 				const data = await another_response.json();
+				console.log(workerDataType);
+				
 				workerData.update(() => data);
 				workerView.update((currentValue) => !currentValue);
 				workerAdd.update((currentValue) => !currentValue);

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
 
 	import { addToggle, searchToggle, toggleImg } from '../components/Shared/EmployeeFunction.svelte';
 	import { fullImg, fullImgUrl, fullImgName, fullImgType } from '../stores/MainStores';
@@ -17,22 +16,18 @@
 	import download_icon from '$lib/assets/download.svg';
 	import add_icon from '$lib/assets/add_circle.svg';
 	import search_icon from '$lib/assets/search.svg';
-	import edit_icon from '$lib/assets/edit_alt.svg';
 
 	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public'
-
-	const manageCompanies = () => {
-		goto('/company');
-	};
 
 	onMount(async () => {
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeInfo`);
-			const data = await response.json();
+			
+			// const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeInfo`);
+			// const data = await response.json();
 
-			// Update the store with the fetched data
-			workerData.set(data);
+			// // Update the store with the fetched data
+			// workerData.set(data);
 		} else {
 			// For development
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);

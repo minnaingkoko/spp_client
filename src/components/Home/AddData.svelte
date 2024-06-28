@@ -9,7 +9,6 @@
 		ppExpireDate: null;
 		pob: string;
 		authority: string;
-
 		fatherName: string;
 		motherName: string;
 		address: string;
@@ -31,7 +30,6 @@
 		ppExpireDate: null,
 		pob: '',
 		authority: '',
-
 		fatherName: '',
 		motherName: '',
 		address: '',

@@ -17,27 +17,28 @@
 
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeModifyRequest`, {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(worker)
-			});
-			console.log(response.status);
-			if (response.status === 200) {
-				const another_response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeModify`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ idNo: worker._id })
-				});
-				const data = await another_response.json();
-				workerSearchData.update(() => [data]);
-				workerView.update((currentValue) => !currentValue);
-				workerModify.update((currentValue) => !currentValue);
-			}
+			
+			// const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeModifyRequest`, {
+			// 	method: 'PUT',
+			// 	headers: {
+			// 		'Content-Type': 'application/json'
+			// 	},
+			// 	body: JSON.stringify(worker)
+			// });
+			// console.log(response.status);
+			// if (response.status === 200) {
+			// 	const another_response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeModify`, {
+			// 		method: 'POST',
+			// 		headers: {
+			// 			'Content-Type': 'application/json'
+			// 		},
+			// 		body: JSON.stringify({ idNo: worker._id })
+			// 	});
+			// 	const data = await another_response.json();
+			// 	workerSearchData.update(() => [data]);
+			// 	workerView.update((currentValue) => !currentValue);
+			// 	workerModify.update((currentValue) => !currentValue);
+			// }
 		} else {
 			// For development
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeModifyRequest`, {
