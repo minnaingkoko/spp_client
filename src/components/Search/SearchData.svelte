@@ -13,18 +13,18 @@
 		if (process.env.NODE_ENV === 'production') {
 			// For production
 			
-			// const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeModify`, {
-			// 	method: 'POST',
-			// 	headers: {
-			// 		'Content-Type': 'application/json'
-			// 	},
-			// 	body: JSON.stringify({ idNo: value })
-			// });
-			// const data = await response.json();
-			// console.log(data);
+			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeModify`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ idNo: value })
+			});
+			const data = await response.json();
+			console.log(data);
 
-			// // Update the store with the fetched data
-			// workerModifyData.set(data);
+			// Update the store with the fetched data
+			workerModifyData.set(data);
 		} else {
 			// For development
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeModify`, {
