@@ -2,7 +2,7 @@
 	import visibility_icon from '$lib/assets/visibility.svg';
 	import edit_icon from '$lib/assets/edit.svg';
 	import delete_icon from '$lib/assets/delete.svg';
-	import { workerData } from '../../stores/WorkerStore';
+	import { workerData, currentPage } from '../../stores/WorkerStore';
 	import { listToggle, modifyToggle, deleteToggle } from '../Shared/EmployeeFunction.svelte';
 </script>
 
@@ -30,7 +30,7 @@
 				<div class="col1">
 					<input class="cb" type="checkbox" />
 				</div>
-				<div class="col2">{index + 1}</div>
+				<div class="col2">{($currentPage - 1) * 10 + index + 1}</div>
 				<div class="col3">{data.name}</div>
 				<div class="col4">{data.passportNo}</div>
 				<div class="col5">{data.passportType}</div>

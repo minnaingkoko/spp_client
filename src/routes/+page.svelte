@@ -4,7 +4,7 @@
 
 	import { addToggle, searchToggle, toggleImg } from '../components/Shared/EmployeeFunction.svelte';
 	import { fullImg, fullImgUrl, fullImgName, fullImgType } from '../stores/MainStores';
-	import { workerData, workerModifyData, workerView } from '../stores/WorkerStore';
+	import { workerData, totalPages, currentPage, workerModifyData, workerView } from '../stores/WorkerStore';
 
 	import WorkerData from '../components/Home/WorkerData.svelte';
 	import AddWorker from '../components/Home/AddWorker.svelte';
@@ -19,10 +19,14 @@
 	import search_icon from '$lib/assets/search.svg';
 	import edit_icon from '$lib/assets/edit_alt.svg';
 
-	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public'
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
 
-	const manageCompanies = () => {
-		goto('/company');
+	const fetchWorkers = async (page = 1) => {
+		const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo?page=${page}$limit=10`);
+		const data = await response.json();
+		workerData.set(data.workers);
+		totalPages.set(data.totalPages);
+		currentPage.set(data.currentPage);
 	};
 
 	onMount(async () => {
@@ -35,13 +39,14 @@
 			workerData.set(data);
 		} else {
 			// For development
-			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
-			const data = await response.json();
-
-			// Update the store with the fetched data
-			workerData.set(data);
+			fetchWorkers();
 		}
 	});
+
+	const goToPage = (page) => {
+		fetchWorkers(page);
+	};
+
 	$: image = $fullImg;
 </script>
 
@@ -100,4 +105,9 @@
 		</div>
 	</nav>
 	<WorkerData />
+	<div class="pagination absolute bottom-[30px] right-[60px] flex justify-center mt-8">
+		<button on:click={() => goToPage($currentPage - 1)} class="px-4 py-2 mx-1 border rounded bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled={$currentPage === 1}>Previous</button>
+		<span class="px-4 py-2 mx-1">Page {$currentPage} of {$totalPages}</span>
+		<button on:click={() => goToPage($currentPage + 1)} class="px-4 py-2 mx-1 border rounded bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled={$currentPage === $totalPages}>Next</button>
+	</div>
 {/if}

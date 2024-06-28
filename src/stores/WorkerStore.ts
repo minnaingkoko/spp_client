@@ -1,6 +1,8 @@
 import { writable } from 'svelte/store';
 
 export const workerData = writable<Array<any>>([]);
+export const totalPages = writable(1);
+export const currentPage = writable(1);
 
 export const workerSearch = writable(false);
 export const workerSearchData = writable<any>(null);
