@@ -72,7 +72,7 @@
 		<ListWorkers />
 	</div>
 
-	<nav class="px-[30px] py-[16px] flex bg-[#000000] w-[100%] h-[65px] justify-between items-center">
+	<nav class="px-[30px] py-[16px] flex bg-[#f53f3f] w-[100%] h-[65px] justify-between items-center">
 		<div class="text-[white] text-[24px]">
 			Manage <b>Workers</b>
 		</div>
