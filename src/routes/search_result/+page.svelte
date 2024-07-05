@@ -6,12 +6,11 @@
 	import { workerModifyData, workerView } from '../../stores/WorkerStore';
 
 	import SearchData from '../../components/Search/SearchData.svelte';
-	import ListWorkers from '../../components/Home/ListWorkers.svelte';
+	import ListSearch from '../../components/Search/ListSearch.svelte';
 	import SearchWorker from '../../components/Home/SearchWorker.svelte';
 	import ModifySearchWorker from '../../components/Search/ModifySearchWorker.svelte';
 	import RemoveSearchWorker from '../../components/Search/RemoveSearchWorker.svelte';
 
-	import add_icon from '$lib/assets/add_circle.svg';
 	import close_icon from '$lib/assets/close.svg';
 	import download_icon from '$lib/assets/download.svg';
 	import search_icon from '$lib/assets/search.svg';
@@ -51,7 +50,7 @@
 			<ModifySearchWorker />
 		{/if}
 
-		<ListWorkers />
+		<ListSearch />
 	</div>
 
 	<nav class="px-[30px] py-[16px] flex bg-[#536DFE] w-[100%] h-[65px] justify-between items-center">

@@ -3,7 +3,7 @@
 
 	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public'
 
-	import { workerView, workerAdd, workerSearch, workerList_id, workerModify, workerModifyData, workerList, workerRemove_id, workerRemove } from '../../stores/WorkerStore';
+	import { totalPages, workerData, currentPage, workerView, workerAdd, workerSearch, workerList_id, workerModify, workerModifyData, workerList, workerRemove_id, workerRemove } from '../../stores/WorkerStore';
 
 	let Page1: any, Page2: any, Page3: any, Page4: any;
 
@@ -20,13 +20,13 @@
 		Page4 = value;
 	});
 
-	const resetPage = () => {
-		HPage1.update(() => true);
+	export const resetPage = () => {
+		HPage1.update(() => true); 
 		HPage2.update(() => false);
 		HPage3.update(() => false);
 		HPage4.update(() => false);
 	};
-
+	
 	export const searchToggle = () => {
 		resetPage();
 		workerView.update((currentValue: any) => !currentValue);

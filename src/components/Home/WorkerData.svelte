@@ -2,8 +2,26 @@
 	import visibility_icon from '$lib/assets/visibility.svg';
 	import edit_icon from '$lib/assets/edit.svg';
 	import delete_icon from '$lib/assets/delete.svg';
-	import { workerData, currentPage } from '../../stores/WorkerStore';
-	import { listToggle, modifyToggle, deleteToggle } from '../Shared/EmployeeFunction.svelte';
+	import { totalPages, workerData, currentPage, workerView,  workerList_id, workerList } from '../../stores/WorkerStore';
+	import { resetPage, modifyToggle, deleteToggle } from '../Shared/EmployeeFunction.svelte';
+
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public'
+
+	const fetchWorkers = async (page = 1) => {
+		const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo?page=${page}$limit=12`);
+		const data = await response.json();
+		workerData.set(data.workers);
+		totalPages.set(data.totalPages);
+		currentPage.set(data.currentPage);
+	};
+
+	const listToggle = (value: any) => {
+		fetchWorkers($currentPage);
+		resetPage();
+		workerList_id.update(() => value);
+		workerView.update((currentValue) => !currentValue);
+		workerList.update((currentValue) => !currentValue);
+	};
 </script>
 
 <div class="employees_data">
@@ -30,7 +48,7 @@
 				<div class="col1">
 					<input class="cb" type="checkbox" />
 				</div>
-				<div class="col2">{($currentPage - 1) * 10 + index + 1}</div>
+				<div class="col2">{($currentPage - 1) * 12 + index + 1}</div>
 				<div class="col3">{data.name}</div>
 				<div class="col4">{data.passportNo}</div>
 				<div class="col5">{data.passportType}</div>

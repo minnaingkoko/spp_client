@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
 
 	import { addToggle, searchToggle, toggleImg } from '../components/Shared/EmployeeFunction.svelte';
 	import { fullImg, fullImgUrl, fullImgName, fullImgType } from '../stores/MainStores';
@@ -17,12 +16,11 @@
 	import download_icon from '$lib/assets/download.svg';
 	import add_icon from '$lib/assets/add_circle.svg';
 	import search_icon from '$lib/assets/search.svg';
-	import edit_icon from '$lib/assets/edit_alt.svg';
 
 	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
 
 	const fetchWorkers = async (page = 1) => {
-		const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo?page=${page}$limit=10`);
+		const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo?page=${page}$limit=12`);
 		const data = await response.json();
 		workerData.set(data.workers);
 		totalPages.set(data.totalPages);
@@ -87,11 +85,6 @@
 			Manage <b>Workers</b>
 		</div>
 		<div class="flex flex-row gap-[16px]">
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<!-- <div class="flex justify-center items-center gap-[5px] w-[164px] h-[33px] text-white duration-300 bg-[#F9A826] rounded-[4px] text-[13px] cursor-pointer" on:click={manageCompanies}>
-				<img class="edit" src={edit_icon} alt="" width="20px" height="20px" />
-				<span>Manage Companies</span>
-			</div> -->
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<div class="flex justify-center items-center gap-[5px] w-[164px] h-[33px] text-white duration-300 bg-[#00B0FF] hover:bg-[#00aeffde] rounded-[4px] text-[13px] cursor-pointer" on:click={searchToggle}>
 				<img class="edit" src={search_icon} alt="" width="20px" height="20px" />

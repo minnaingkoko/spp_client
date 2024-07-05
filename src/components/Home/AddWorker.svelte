@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { HPage1, HPage2, } from '../../stores/MainStores';
-	import { workerData, workerView, workerAdd } from '../../stores/WorkerStore';
+	import { totalPages, currentPage, workerData, workerView, workerAdd } from '../../stores/WorkerStore';
 	import { addToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 
 	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
@@ -8,6 +8,14 @@
 	import close_icon from '$lib/assets/close.svg';
 
 	import { workerDataType } from './AddData.svelte';
+
+	const fetchWorkers = async (page = 1) => {
+		const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo?page=${page}$limit=12`);
+		const data = await response.json();
+		workerData.set(data.workers);
+		totalPages.set(data.totalPages);
+		currentPage.set(data.currentPage);
+	};
 
 	const addRequest = async () => {
 		if (process.env.NODE_ENV === 'production') {
@@ -78,32 +86,13 @@
 				workerDataType.airPlaneNo = '';
 				workerDataType.departureDate = null;
 
-				const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
-				const data = await another_response.json();
-				console.log(workerDataType);
+				// const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
+				fetchWorkers($currentPage);
+				// const data = await another_response.json();
 				
-				workerData.update(() => data);
+				// workerData.update(() => data);
 				workerView.update((currentValue) => !currentValue);
 				workerAdd.update((currentValue) => !currentValue);
-			}
-		}
-	};
-
-	const handleFileChange = (event: any, value: any) => {
-		const files = event.target.files;
-		if (files && files.length > 0) {
-			const file = files[0];
-			if (file) {
-				const reader = new FileReader();
-				reader.onloadend = () => {
-					const base64String = reader.result;
-					value.filename = file.name;
-					value.contentType = file.type;
-					value.data = base64String;
-					// Use the base64String as needed (e.g., send it in a request)
-				};
-
-				reader.readAsDataURL(file);
 			}
 		}
 	};
