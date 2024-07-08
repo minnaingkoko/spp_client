@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { HPage1, HPage2, } from '../../stores/MainStores';
+	import { HPage1, HPage2, message } from '../../stores/MainStores';
 	import { totalPages, currentPage, workerData, workerView, workerAdd } from '../../stores/WorkerStore';
 	import { addToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 
@@ -66,6 +66,7 @@
 			});
 			
 			if (response.status === 200) {
+				
 				workerDataType.name = '';
 				workerDataType.passportNo = '';
 				workerDataType.passportType = '';
@@ -91,8 +92,17 @@
 				// const data = await another_response.json();
 				
 				// workerData.update(() => data);
+
+				message.update(() => 'add');
 				workerView.update((currentValue) => !currentValue);
 				workerAdd.update((currentValue) => !currentValue);
+
+				const timer = setTimeout(() => {
+					message.update(() => '');
+				}, 3000);
+
+				// Cleanup the timer if the component is destroyed before the timer completes
+				return () => clearTimeout(timer);	
 			}
 		}
 	};

@@ -1,9 +1,17 @@
 <script lang="ts">
 	import close_icon from '$lib/assets/close.svg';
-	import { workerData, workerView, workerRemove, workerRemove_id } from '../../stores/WorkerStore';
-	import { goto } from '$app/navigation';
+	import { message } from '../../stores/MainStores';
+	import { totalPages, currentPage, workerData, workerView, workerRemove, workerRemove_id } from '../../stores/WorkerStore';
 
 	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
+
+	const fetchWorkers = async (page = 1) => {
+		const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo?page=${page}$limit=12`);
+		const data = await response.json();
+		workerData.set(data.workers);
+		totalPages.set(data.totalPages);
+		currentPage.set(data.currentPage);
+	};
 
 	const deleteToggle = (value: any) => {
 		workerRemove_id.update(() => value);
@@ -39,11 +47,19 @@
 				body: JSON.stringify({ idNo: value })
 			});
 			if (response.status === 200) {
-				const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
-				const data = await another_response.json();
-				workerData.update(() => data);
+				fetchWorkers($currentPage);
+
 				workerView.update((currentValue) => !currentValue);
 				workerRemove.update((currentValue) => !currentValue);
+
+				message.update(() => 'delete');
+
+				const timer = setTimeout(() => {
+					message.update(() => '');
+				}, 3000);
+
+				// Cleanup the timer if the component is destroyed before the timer completes
+				return () => clearTimeout(timer);
 			}
 		}
 	};

@@ -1,5 +1,7 @@
 import { writable } from 'svelte/store';
 
+export const message = writable('');
+
 export const api_url = writable('');
 
 export const fullImg = writable(false);

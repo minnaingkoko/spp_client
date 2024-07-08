@@ -1,5 +1,5 @@
 import { createToken } from '$lib/session';
-import bcrypt from 'bcrypt'; // Assuming you're using bcrypt for password hashing
+import bcrypt from 'bcryptjs'; // Assuming you're using bcrypt for password hashing
 import { redirect } from '@sveltejs/kit';
 import { SECRET_USERNAME, SECRET_PASSWORD, SECRET_SESSION } from '$env/static/private'
 
