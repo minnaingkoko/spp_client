@@ -77,16 +77,15 @@
 				<div class="col7">{data.authority}</div>
 				<div class="col14" class:visible={rows[index].isHovering}>
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
-					<div on:click={() => modifyToggle(data._id)}>
+					<div on:click={(event) => { event.stopPropagation(); modifyToggle(data._id); }}>
 						<img class="edit" src={edit_icon} alt="" width="22px" height="22px" />
 					</div>
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
-					<div on:click={() => deleteToggle(data._id)}>
+					<div on:click={(event) => { event.stopPropagation(); deleteToggle(data._id); }}>
 						<img class="delete" src={delete_icon} alt="" width="22px" height="22px" />
 					</div>
 				</div>
 			</div>
-			<!-- <div class="hr" /> -->
 		{/each}
 	</ul>
 </div>
