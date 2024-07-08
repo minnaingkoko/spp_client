@@ -3,16 +3,15 @@
 	import edit_icon from '$lib/assets/edit.svg';
 	import delete_icon from '$lib/assets/delete.svg';
 
-	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public'
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
 
 	import { workerSearchData, workerView, workerList_id, workerModify, workerModifyData } from '../../stores/WorkerStore';
 	import { listToggle, deleteToggle } from '../Shared/EmployeeFunction.svelte';
 
 	const modifyPost = async (value: any) => {
-
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			
+
 			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeModify`, {
 				method: 'POST',
 				headers: {
@@ -53,7 +52,7 @@
 </script>
 
 <div class="text-black">
-	<div class="h-[50px] text-[14px] flex flex-row w-[100%] font-bold ">
+	<div class="h-[50px] text-[14px] flex flex-row w-[100%] font-bold">
 		<div class="col1 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Select</div>
 		<div class="col2 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">No</div>
 		<div class="col3 flex flex-row justify-center items-center py-0 px-[15px] border-[#e9e9e9] border-solid border-r">Name</div>

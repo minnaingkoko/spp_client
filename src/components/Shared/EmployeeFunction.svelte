@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	import { HPage1, HPage2, HPage3, HPage4, fullImg, fullImgUrl, fullImgName, fullImgType } from '../../stores/MainStores';
 
-	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public'
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
 
 	import { totalPages, workerData, currentPage, workerView, workerAdd, workerSearch, workerList_id, workerModify, workerModifyData, workerList, workerRemove_id, workerRemove } from '../../stores/WorkerStore';
 
@@ -21,12 +21,12 @@
 	});
 
 	export const resetPage = () => {
-		HPage1.update(() => true); 
+		HPage1.update(() => true);
 		HPage2.update(() => false);
 		HPage3.update(() => false);
 		HPage4.update(() => false);
 	};
-	
+
 	export const searchToggle = () => {
 		resetPage();
 		workerView.update((currentValue: any) => !currentValue);
@@ -52,10 +52,9 @@
 	};
 
 	const modifyPost = async (value: any) => {
-
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			
+
 			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeModify`, {
 				method: 'POST',
 				headers: {

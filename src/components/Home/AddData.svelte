@@ -38,6 +38,6 @@
 		agent: '',
 		companyName: '',
 		airPlaneNo: '',
-		departureDate: null,
+		departureDate: null
 	};
 </script>

@@ -3,7 +3,7 @@
 
 	import close_icon from '$lib/assets/close.svg';
 
-	import { listToggle, } from '../Shared/EmployeeFunction.svelte';
+	import { listToggle } from '../Shared/EmployeeFunction.svelte';
 	import WorkerTextData from '../Home/WorkerTextData.svelte';
 </script>
 
@@ -24,7 +24,7 @@
 				<WorkerTextData text="Passport No:" value={data.passportNo} />
 				<WorkerTextData text="Passport Type:" value={data.passportType} />
 				<WorkerTextData text="Gender:" value={data.gender} />
-				<WorkerTextData text="Date of Birth:" value={data.dobString} /> 
+				<WorkerTextData text="Date of Birth:" value={data.dobString} />
 				<WorkerTextData text="Age:" value={data.age} />
 				<WorkerTextData text="Date of Issue:" value={data.ppIssueDateString} />
 				<WorkerTextData text="Date of Expire:" value={data.ppExpireDateString} />

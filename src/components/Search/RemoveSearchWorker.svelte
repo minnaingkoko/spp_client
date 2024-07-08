@@ -2,7 +2,7 @@
 	import close_icon from '$lib/assets/close.svg';
 	import { workerSearchData, workerView, workerRemove, workerRemove_id } from '../../stores/WorkerStore';
 
-	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public'
+	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
 
 	const deleteToggle = (value: any) => {
 		workerRemove_id.update(() => value);
@@ -11,10 +11,9 @@
 	};
 
 	const deleteRequest = async (value: any) => {
-
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			
+
 			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeDelete`, {
 				method: 'DELETE',
 				headers: {
@@ -41,7 +40,7 @@
 				workerView.update((currentValue) => !currentValue);
 				workerRemove.update((currentValue) => !currentValue);
 			}
-		}	
+		}
 	};
 </script>
 

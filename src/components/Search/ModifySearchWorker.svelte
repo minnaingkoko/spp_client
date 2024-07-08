@@ -14,10 +14,9 @@
 	$: worker = $workerModifyData;
 
 	const modifyRequest = async (value: any) => {
-
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			
+
 			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeModifyRequest`, {
 				method: 'PUT',
 				headers: {

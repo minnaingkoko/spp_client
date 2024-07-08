@@ -1,7 +1,7 @@
 import { createToken } from '$lib/session';
 import bcrypt from 'bcryptjs'; // Assuming you're using bcrypt for password hashing
 import { redirect } from '@sveltejs/kit';
-import { SECRET_USERNAME, SECRET_PASSWORD, SECRET_SESSION } from '$env/static/private'
+import { SECRET_USERNAME, SECRET_PASSWORD, SECRET_SESSION } from '$env/static/private';
 
 /** @type {import('./$types').Actions} */
 export const actions = {

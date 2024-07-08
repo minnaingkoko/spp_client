@@ -46,7 +46,7 @@
 
 	const toggleMessage = () => {
 		message.update(() => '');
-	}
+	};
 
 	$: image = $fullImg;
 </script>
@@ -102,4 +102,3 @@
 	<span class="px-4 py-2 mx-1">Page {$currentPage} of {$totalPages}</span>
 	<button on:click={() => goToPage($currentPage + 1)} class="px-4 py-2 mx-1 border rounded bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled={$currentPage === $totalPages}>Next</button>
 </div>
-

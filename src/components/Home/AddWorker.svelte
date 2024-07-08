@@ -20,7 +20,7 @@
 	const addRequest = async () => {
 		if (process.env.NODE_ENV === 'production') {
 			// For production
-			
+
 			const response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeUpload`, {
 				method: 'POST',
 				headers: {
@@ -55,7 +55,6 @@
 				workerAdd.update((currentValue) => !currentValue);
 			}
 		} else {
-			
 			// For development
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeUpload`, {
 				method: 'POST',
@@ -64,9 +63,8 @@
 				},
 				body: JSON.stringify(workerDataType)
 			});
-			
+
 			if (response.status === 200) {
-				
 				workerDataType.name = '';
 				workerDataType.passportNo = '';
 				workerDataType.passportType = '';
@@ -90,7 +88,7 @@
 				// const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
 				fetchWorkers($currentPage);
 				// const data = await another_response.json();
-				
+
 				// workerData.update(() => data);
 
 				message.update(() => 'add');
@@ -102,7 +100,7 @@
 				}, 3000);
 
 				// Cleanup the timer if the component is destroyed before the timer completes
-				return () => clearTimeout(timer);	
+				return () => clearTimeout(timer);
 			}
 		}
 	};
@@ -119,69 +117,69 @@
 	<hr />
 	<form class="addForm" on:submit|preventDefault={() => addRequest()}>
 		{#if $HPage1}
-		<label class="mg" for="name">Name:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.name} name="name" id="name" required />
+			<label class="mg" for="name">Name:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.name} name="name" id="name" required />
 
-		<label class="mg" for="passport">Passport:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.passportNo} name="passportNo" id="passportNo" />
+			<label class="mg" for="passport">Passport:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.passportNo} name="passportNo" id="passportNo" />
 
-		<label class="mg" for="passportType">Passport Type:</label>
-		<select class="add_input" bind:value={workerDataType.passportType}>
-			<option value="PJ">PJ</option>
-			<option value="PV">PV</option>
-		</select>
+			<label class="mg" for="passportType">Passport Type:</label>
+			<select class="add_input" bind:value={workerDataType.passportType}>
+				<option value="PJ">PJ</option>
+				<option value="PV">PV</option>
+			</select>
 
-		<label class="mg" for="gender">Gender:</label>
-		<select class="add_input" bind:value={workerDataType.gender}>
-			<option value="Male">Male</option>
-			<option value="Female">Female</option>
-		</select>
+			<label class="mg" for="gender">Gender:</label>
+			<select class="add_input" bind:value={workerDataType.gender}>
+				<option value="Male">Male</option>
+				<option value="Female">Female</option>
+			</select>
 
-		<label class="mg" for="dob">Date of Birth:</label>
-		<input class="add_input" type="date" bind:value={workerDataType.dob} name="dob" id="dob" />
+			<label class="mg" for="dob">Date of Birth:</label>
+			<input class="add_input" type="date" bind:value={workerDataType.dob} name="dob" id="dob" />
 
-		<label class="mg" for="ppIssueDate">Date of issue:</label>
-		<input class="add_input" type="date" bind:value={workerDataType.ppIssueDate} name="ppIssueDate" id="ppIssueDate" />
+			<label class="mg" for="ppIssueDate">Date of issue:</label>
+			<input class="add_input" type="date" bind:value={workerDataType.ppIssueDate} name="ppIssueDate" id="ppIssueDate" />
 
-		<label class="mg" for="ppIssueDate">Date of expire:</label>
-		<input class="add_input" type="date" bind:value={workerDataType.ppExpireDate} name="ppIssueDate" id="ppIssueDate" />
+			<label class="mg" for="ppIssueDate">Date of expire:</label>
+			<input class="add_input" type="date" bind:value={workerDataType.ppExpireDate} name="ppIssueDate" id="ppIssueDate" />
 
-		<label class="mg" for="pob">Place of Birth:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.pob} name="pob" id="pob" />
+			<label class="mg" for="pob">Place of Birth:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.pob} name="pob" id="pob" />
 
-		<label class="mg" for="authority">Authority:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.authority} name="authority" id="authority" />
+			<label class="mg" for="authority">Authority:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.authority} name="authority" id="authority" />
 		{/if}
 
 		<!-- more data -->
 
 		{#if $HPage2}
-		<label class="mg" for="fatherName">Father Name:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.fatherName} name="fatherName" id="fatherName" />
+			<label class="mg" for="fatherName">Father Name:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.fatherName} name="fatherName" id="fatherName" />
 
-		<label class="mg" for="motherName">Mother Name:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.motherName} name="motherName" id="motherName" />
+			<label class="mg" for="motherName">Mother Name:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.motherName} name="motherName" id="motherName" />
 
-		<label class="mg" for="address">Address:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.address} name="address" id="address" />
-		
-		<label class="mg" for="nrcNo">NRC No:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.nrcNo} name="nrcNo" id="nrcNo" />
-		
-		<label class="mg" for="phNo">Phone Number:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.phNo} name="phNo" id="phNo" />
-		
-		<label class="mg" for="agent">Agent:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.agent} name="agent" id="agent" />
-		
-		<label class="mg" for="companyName">Company Name:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.companyName} name="companyName" id="companyName" />
-		
-		<label class="mg" for="airPlaneNo">Airplane No:</label>
-		<input class="add_input" type="text" bind:value={workerDataType.airPlaneNo} name="airPlaneNo" id="airPlaneNo" />
-		
-		<label class="mg" for="departureDate">Departure Date:</label>
-		<input class="add_input" type="date" bind:value={workerDataType.departureDate} name="departureDate" id="departureDate" />
+			<label class="mg" for="address">Address:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.address} name="address" id="address" />
+
+			<label class="mg" for="nrcNo">NRC No:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.nrcNo} name="nrcNo" id="nrcNo" />
+
+			<label class="mg" for="phNo">Phone Number:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.phNo} name="phNo" id="phNo" />
+
+			<label class="mg" for="agent">Agent:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.agent} name="agent" id="agent" />
+
+			<label class="mg" for="companyName">Company Name:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.companyName} name="companyName" id="companyName" />
+
+			<label class="mg" for="airPlaneNo">Airplane No:</label>
+			<input class="add_input" type="text" bind:value={workerDataType.airPlaneNo} name="airPlaneNo" id="airPlaneNo" />
+
+			<label class="mg" for="departureDate">Departure Date:</label>
+			<input class="add_input" type="date" bind:value={workerDataType.departureDate} name="departureDate" id="departureDate" />
 		{/if}
 
 		<div class="addForm-bot">
