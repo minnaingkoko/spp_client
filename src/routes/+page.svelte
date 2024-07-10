@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 
 	import { addToggle, searchToggle } from '../components/Shared/EmployeeFunction.svelte';
-	import { fullImg, message, messageText } from '../stores/MainStores';
+	import { fullImg, message, messageText, isLoading } from '../stores/MainStores';
 	import { workerData, totalPages, currentPage, workerModifyData, workerView } from '../stores/WorkerStore';
 
 	import WorkerData from '../components/Home/WorkerData.svelte';
@@ -21,6 +21,7 @@
 	const fetchWorkers = async (page = 1) => {
 		const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo?page=${page}$limit=12`);
 		const data = await response.json();
+		console.log(data.workers);
 		workerData.set(data.workers);
 		totalPages.set(data.totalPages);
 		currentPage.set(data.currentPage);
@@ -37,6 +38,13 @@
 		} else {
 			// For development
 			fetchWorkers();
+
+			const timer = setTimeout(() => {
+				isLoading.update(() => false);
+			}, 1000);
+
+				// Cleanup the timer if the component is destroyed before the timer completes
+			return () => clearTimeout(timer);
 		}
 	});
 
@@ -94,6 +102,10 @@
 <WorkerData />
 <div class="pagination absolute bottom-[30px] right-[60px] flex justify-center mt-8">
 	<button on:click={() => goToPage($currentPage - 1)} class="px-4 py-2 mx-1 border rounded bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled={$currentPage === 1}>Previous</button>
-	<span class="px-4 py-2 mx-1">Page {$currentPage} of {$totalPages}</span>
+	{#if $totalPages === 0}
+		<span class="px-4 py-2 mx-1">Page 1 of 1</span>
+	{:else}
+		<span class="px-4 py-2 mx-1">Page {$currentPage} of {$totalPages}</span>
+	{/if}
 	<button on:click={() => goToPage($currentPage + 1)} class="px-4 py-2 mx-1 border rounded bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled={$currentPage === $totalPages}>Next</button>
 </div>

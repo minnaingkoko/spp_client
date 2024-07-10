@@ -2,6 +2,7 @@ import { writable } from 'svelte/store';
 
 export const message = writable('');
 export const messageText = writable('');
+export const isLoading = writable(true);
 
 export const api_url = writable('');
 

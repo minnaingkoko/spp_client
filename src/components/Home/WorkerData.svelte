@@ -1,5 +1,6 @@
 <script lang="ts">
-	import visibility_icon from '$lib/assets/visibility.svg';
+	import { isLoading } from '../../stores/MainStores';
+	import { Shadow } from 'svelte-loading-spinners';
 	import edit_icon from '$lib/assets/edit.svg';
 	import delete_icon from '$lib/assets/delete.svg';
 	import { totalPages, workerData, currentPage, workerView, workerList_id, workerList } from '../../stores/WorkerStore';
@@ -55,42 +56,74 @@
 		<div class="col7">Authority</div>
 	</div>
 	<div class="hr" />
-	<ul>
-		{#each $workerData as data, index}
-			<!-- <div class={index % 2 === 0 ? 'row-alt' : 'row'}> -->
-			<!-- svelte-ignore a11y-mouse-events-have-key-events -->
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<div class="row" on:click={() => listToggle(data._id)} on:mouseover={() => handleMouseOver(index)} on:mouseleave={() => handleMouseLeave(index)}>
-				<div class="col1">
-					<input class="cb" type="checkbox" />
-				</div>
-				<div class="col2">{($currentPage - 1) * 12 + index + 1}</div>
-				<div class="col3">{data.name}</div>
-				<div class="col4">{data.passportNo}</div>
-				<div class="col5">{data.passportType}</div>
-				<div class="col6">{data.gender}</div>
-				<div class="col7">{data.dobString}</div>
-				<div class="col7">{data.age}</div>
-				<div class="col7">{data.ppIssueDateString}</div>
-				<div class="col7">{data.ppExpireDateString}</div>
-				<div class="col7">{data.pob}</div>
-				<div class="col7">{data.authority}</div>
-				<div class="col14" class:visible={rows[index].isHovering}>
-					<!-- svelte-ignore a11y-click-events-have-key-events -->
-					<div on:click={(event) => { event.stopPropagation(); modifyToggle(data._id); }}>
-						<img class="edit" src={edit_icon} alt="" width="22px" height="22px" />
-					</div>
-					<!-- svelte-ignore a11y-click-events-have-key-events -->
-					<div on:click={(event) => { event.stopPropagation(); deleteToggle(data._id); }}>
-						<img class="delete" src={delete_icon} alt="" width="22px" height="22px" />
-					</div>
-				</div>
+	<ul>	
+		{#if $isLoading}
+			<div class='loading-container'>
+				<Shadow  size="60" color="#536DFE" unit="px" duration="1s" />
 			</div>
-		{/each}
+		{:else}
+			{#if $workerData.length !== 0}
+				{#each $workerData as data, index}
+					<!-- <div class={index % 2 === 0 ? 'row-alt' : 'row'}> -->
+					<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
+					<div class="row" on:click={() => listToggle(data._id)} on:mouseover={() => handleMouseOver(index)} on:mouseleave={() => handleMouseLeave(index)}>
+						<div class="col1">
+							<input class="cb" type="checkbox" />
+						</div>
+						<div class="col2">{($currentPage - 1) * 12 + index + 1}</div>
+						<div class="col3">{data.name}</div>
+						<div class="col4">{data.passportNo}</div>
+						<div class="col5">{data.passportType}</div>
+						<div class="col6">{data.gender}</div>
+						<div class="col7">{data.dobString}</div>
+						<div class="col7">{data.age}</div>
+						<div class="col7">{data.ppIssueDateString}</div>
+						<div class="col7">{data.ppExpireDateString}</div>
+						<div class="col7">{data.pob}</div>
+						<div class="col7">{data.authority}</div>
+						<div class="col14" class:visible={rows[index].isHovering}>
+							<!-- svelte-ignore a11y-click-events-have-key-events -->
+							<div
+								on:click={(event) => {
+									event.stopPropagation();
+									modifyToggle(data._id);
+								}}
+							>
+								<img class="edit" src={edit_icon} alt="" width="22px" height="22px" />
+							</div>
+							<!-- svelte-ignore a11y-click-events-have-key-events -->
+							<div
+								on:click={(event) => {
+									event.stopPropagation();
+									deleteToggle(data._id);
+								}}
+							>
+								<img class="delete" src={delete_icon} alt="" width="22px" height="22px" />
+							</div>
+						</div>
+					</div>
+				{/each}
+			{:else}
+				<div class="no-data">No worker data available</div>	
+			{/if}
+		{/if}
 	</ul>
 </div>
 
 <style>
+	.loading-container {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+	}
+	.no-data {
+		font-size: 18px;
+		margin-left: 15px;
+		margin-top: 15px;
+	}
 	.employees_data {
 		color: black;
 	}
