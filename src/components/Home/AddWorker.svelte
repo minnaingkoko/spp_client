@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { HPage1, HPage2, message } from '../../stores/MainStores';
+	import { HPage1, HPage2, message, messageText } from '../../stores/MainStores';
 	import { totalPages, currentPage, workerData, workerView, workerAdd } from '../../stores/WorkerStore';
 	import { addToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 
@@ -8,6 +8,8 @@
 	import close_icon from '$lib/assets/close.svg';
 
 	import { workerDataType } from './AddData.svelte';
+
+	let errorMessage = '';
 
 	const fetchWorkers = async (page = 1) => {
 		const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo?page=${page}$limit=12`);
@@ -56,6 +58,8 @@
 			}
 		} else {
 			// For development
+			errorMessage = '';
+
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeUpload`, {
 				method: 'POST',
 				headers: {
@@ -85,23 +89,54 @@
 				workerDataType.airPlaneNo = '';
 				workerDataType.departureDate = null;
 
-				// const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
 				fetchWorkers($currentPage);
-				// const data = await another_response.json();
 
-				// workerData.update(() => data);
-
-				message.update(() => 'add');
+				message.update(() => 'success');
+				messageText.update(() => 'Worker Successfully registered');
 				workerView.update((currentValue) => !currentValue);
 				workerAdd.update((currentValue) => !currentValue);
 
 				const timer = setTimeout(() => {
 					message.update(() => '');
-				}, 3000);
+					messageText.update(() => '');
+				}, 5000);
 
 				// Cleanup the timer if the component is destroyed before the timer completes
 				return () => clearTimeout(timer);
 			}
+			else if (response.status === 400) {
+                // Handle duplicate errors
+                const data = await response.json();
+                errorMessage = data.message;
+				
+				message.update(() => 'error');
+				messageText.update(() => errorMessage);
+				workerView.update((currentValue) => !currentValue);
+				workerAdd.update((currentValue) => !currentValue);
+
+				const timer = setTimeout(() => {
+					message.update(() => '');
+					messageText.update(() => '');
+				}, 5000);
+
+				// Cleanup the timer if the component is destroyed before the timer completes
+				return () => clearTimeout(timer);
+            } else {
+                // Handle other errors
+                errorMessage = 'An error occurred while creating the employee';
+
+				message.update(() => 'error');
+				messageText.update(() => errorMessage);
+				workerView.update((currentValue) => !currentValue);
+				workerAdd.update((currentValue) => !currentValue);
+
+				const timer = setTimeout(() => {
+					message.update(() => '');
+				}, 5000);
+
+				// Cleanup the timer if the component is destroyed before the timer completes
+				return () => clearTimeout(timer);
+            }
 		}
 	};
 </script>

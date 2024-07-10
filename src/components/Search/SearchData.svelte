@@ -41,6 +41,19 @@
 		}
 	};
 
+	$: rows = $workerSearchData.map((row, index) => ({
+		id: index,
+		isHovering: false
+	}));
+
+	function handleMouseOver(rowId) {
+		rows[rowId].isHovering = true;
+	}
+
+	function handleMouseLeave(rowId) {
+		rows[rowId].isHovering = false;
+	}
+
 	const modifyToggle = (value: any) => {
 		// console.log(value);
 		modifyPost(value);
@@ -72,7 +85,9 @@
 	<div class="w-[100%] h-[2px] bg-[#e9e9e9]" />
 	<ul>
 		{#each $workerSearchData as data, index}
-			<div class={index % 2 === 0 ? 'row-alt' : 'row'}>
+			<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<div class="row" on:click={() => listToggle(data._id)} on:mouseover={() => handleMouseOver(index)} on:mouseleave={() => handleMouseLeave(index)}>
 				<div class="col1">
 					<input class="m-0" type="checkbox" />
 				</div>
@@ -87,17 +102,13 @@
 				<div class="col7">{data.ppExpireDateString}</div>
 				<div class="col7">{data.pob}</div>
 				<div class="col7">{data.authority}</div>
-				<div class="col14">
+				<div class="col14" class:visible={rows[index].isHovering}>
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
-					<div on:click={() => listToggle(data._id)}>
-						<img class="visibility" src={visibility_icon} alt="" width="22px" height="22px" />
-					</div>
-					<!-- svelte-ignore a11y-click-events-have-key-events -->
-					<div on:click={() => modifyToggle(data._id)}>
+					<div on:click={(event) => { event.stopPropagation(); modifyToggle(data._id); }}>
 						<img class="edit" src={edit_icon} alt="" width="22px" height="22px" />
 					</div>
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
-					<div on:click={() => deleteToggle(data._id)}>
+					<div on:click={(event) => { event.stopPropagation(); deleteToggle(data._id); }}>
 						<img class="delete" src={delete_icon} alt="" width="22px" height="22px" />
 					</div>
 				</div>
@@ -108,23 +119,44 @@
 </div>
 
 <style>
-	.row-alt,
+	.employees_data {
+		color: black;
+	}
+	.hr {
+		width: 100%;
+		height: 2px;
+		background-color: #e9e9e9;
+	}
+	.cb {
+		margin: 0;
+	}
+	.e_heading,
 	.row {
 		font-size: 14px;
 		display: flex;
 		flex-direction: row;
 		width: 100%;
 	}
-	.row-alt {
-		height: 52px;
-		background-color: white;
+	.e_heading {
+		height: 50px;
+		font-weight: bold;
 	}
 	.row {
 		height: 52px;
 		background-color: #f5f5f5;
+		padding-bottom: 10px;
+		padding-top: 10px;
+		box-shadow: inset 0 -1px 0 0 rgba(100, 121, 143, 0.12);
+		position: relative;
+		cursor: pointer;
+		border-spacing: 0;
+		border-collapse: collapse;
 	}
-	.row > div,
-	.row-alt > div {
+	.row:hover {
+		box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+		z-index: 2;
+	}
+	.e_heading > div {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -138,12 +170,17 @@
 	.col5,
 	.col6,
 	.col7 {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0 15px;
+		border-right: 1px solid #e9e9e9;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 	.col1 {
-		width: 100px;
+		width: 50px;
 	}
 	.col2 {
 		width: 50px;
@@ -164,8 +201,14 @@
 		width: 120px;
 	}
 	.col14 {
-		border-right: 0 !important;
+		display: none;
+	}
+	.visible {
 		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0 15px;
+		border-right: 0;
 		flex-direction: row;
 		gap: 8px;
 		width: 120px;
@@ -175,7 +218,8 @@
 	}
 	.visibility,
 	.edit,
-	.delete {
+	.delete,
+	.close {
 		cursor: pointer;
 		transition: 0.3s;
 	}

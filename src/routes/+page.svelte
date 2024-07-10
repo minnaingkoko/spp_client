@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 
 	import { addToggle, searchToggle } from '../components/Shared/EmployeeFunction.svelte';
-	import { fullImg, message } from '../stores/MainStores';
+	import { fullImg, message, messageText } from '../stores/MainStores';
 	import { workerData, totalPages, currentPage, workerModifyData, workerView } from '../stores/WorkerStore';
 
 	import WorkerData from '../components/Home/WorkerData.svelte';
@@ -46,20 +46,15 @@
 
 	const toggleMessage = () => {
 		message.update(() => '');
+		messageText.update(() => '');
 	};
 
 	$: image = $fullImg;
 </script>
 
-{#if $message === 'add'}
-	<div class="absolute bottom-[30px] left-[30px] h-[20px] bg-[#00BFA6] gap-[30px] flex flex-row justify-between items-center p-[20px] text-white rounded-md">
-		<div class="text-[16px] font-bold cursor-default">Worker successfully registered</div>
-		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<img on:click={toggleMessage} class="cursor-pointer" src={closeAlt_icon} alt="" width="18px" height="18px" />
-	</div>
-{:else if $message === 'delete'}
-	<div class="absolute bottom-[30px] left-[30px] h-[20px] bg-[#F50057] gap-[30px] flex flex-row justify-between items-center p-[20px] text-white rounded-md">
-		<div class="text-[16px] font-bold cursor-default">Worker successfully deleted</div>
+{#if $message}
+	<div class="absolute bottom-[30px] left-[30px] h-[20px] {$message === 'success' ? 'bg-[#00BFA6]' : 'bg-[#F50057]'} gap-[30px] flex flex-row justify-between items-center p-[20px] text-white rounded-md">
+		<div class="text-[16px] font-bold cursor-default">{$messageText}</div>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<img on:click={toggleMessage} class="cursor-pointer" src={closeAlt_icon} alt="" width="18px" height="18px" />
 	</div>

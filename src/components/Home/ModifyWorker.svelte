@@ -1,13 +1,23 @@
 <script lang="ts">
-	import { HPage1, HPage2 } from '../../stores/MainStores';
-	import { workerModifyData, workerData, workerView, workerModify } from '../../stores/WorkerStore';
+	import { HPage1, HPage2, message, messageText } from '../../stores/MainStores';
+	import { totalPages, currentPage, workerModifyData, workerData, workerView, workerModify } from '../../stores/WorkerStore';
 	import { modifyToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 
 	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
 
 	import close_icon from '$lib/assets/close.svg';
 
+	let errorMessage = '';
+
 	$: worker = $workerModifyData;
+
+	const fetchWorkers = async (page = 1) => {
+		const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo?page=${page}$limit=12`);
+		const data = await response.json();
+		workerData.set(data.workers);
+		totalPages.set(data.totalPages);
+		currentPage.set(data.currentPage);
+	};
 
 	const modifyRequest = async (value: any) => {
 		if (process.env.NODE_ENV === 'production') {
@@ -29,6 +39,7 @@
 			}
 		} else {
 			// For development
+			errorMessage = '';
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeModifyRequest`, {
 				method: 'PUT',
 				headers: {
@@ -37,12 +48,38 @@
 				body: JSON.stringify(worker)
 			});
 			if (response.status === 200) {
-				const another_response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeInfo`);
-				const data = await another_response.json();
-				workerData.update(() => data);
+				fetchWorkers($currentPage);
+
+				message.update(() => 'success');
+				messageText.update(() => 'Worker successfully modified');
 				workerView.update((currentValue) => !currentValue);
 				workerModify.update((currentValue) => !currentValue);
+
+				const timer = setTimeout(() => {
+					message.update(() => '');
+					messageText.update(() => '');
+				}, 5000);
+
+				// Cleanup the timer if the component is destroyed before the timer completes
+				return () => clearTimeout(timer);
 			}
+			else if (response.status === 500) {
+                // Handle duplicate errors
+                errorMessage = 'An error occurred while creating the employee';
+				
+				message.update(() => 'error');
+				messageText.update(() => errorMessage);
+				workerView.update((currentValue) => !currentValue);
+				workerModify.update((currentValue) => !currentValue);
+
+				const timer = setTimeout(() => {
+					message.update(() => '');
+					messageText.update(() => '');
+				}, 5000);
+
+				// Cleanup the timer if the component is destroyed before the timer completes
+				return () => clearTimeout(timer);
+            }
 		}
 	};
 </script>
