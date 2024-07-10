@@ -65,7 +65,7 @@
 			}
 			else if (response.status === 500) {
                 // Handle duplicate errors
-                errorMessage = 'An error occurred while creating the employee';
+                errorMessage = 'An error occurred while modifying the worker';
 				
 				message.update(() => 'error');
 				messageText.update(() => errorMessage);

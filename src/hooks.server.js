@@ -14,6 +14,16 @@ export async function handle({ event, resolve }) {
 			});
 		}
 	}
+	else {
+		if (event.url.pathname === '/login') {
+			return new Response(null, {
+				status: 302,
+				headers: {
+					location: '/'
+				}
+			});
+		}
+	}
 
 	return resolve(event);
 }

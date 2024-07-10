@@ -3,6 +3,13 @@ import bcrypt from 'bcryptjs'; // Assuming you're using bcrypt for password hash
 import { redirect } from '@sveltejs/kit';
 import { SECRET_USERNAME, SECRET_PASSWORD, SECRET_SESSION } from '$env/static/private';
 
+let errMsg = '';
+
+/** @type {import('./$types').PageServerLoad} */
+export async function load() {
+	return { errMsg };
+}
+
 /** @type {import('./$types').Actions} */
 export const actions = {
 	default: async ({ cookies, request }) => {
@@ -13,14 +20,19 @@ export const actions = {
 
 		// Fetch user from the database (this is an example, replace with your DB logic)
 		const user = await getUserByUsername(username);
+		
+		if (user) {
+			if(bcrypt.compareSync(password, user.password)) {
+				const sessionToken = createToken({ username: user.username });
 
-		if (user && bcrypt.compareSync(password, user.password)) {
-			const sessionToken = createToken({ username: user.username });
-
-			cookies.set('session_token', sessionToken, { path: '/' });
-			throw redirect(302, '/');
+				cookies.set('session_token', sessionToken, { path: '/' });
+				throw redirect(302, '/');
+			}
+			errMsg = 'Password is incorrect!'
+			return { error: true };	
 		}
-		return { success: false };
+		errMsg = 'Username is incorrect!'
+		return { error: true };	
 	}
 };
 

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { HPage1, HPage2, HPage3, HPage4 } from '../../stores/MainStores';
+	import { HPage1, HPage2, message, messageText } from '../../stores/MainStores';
 	import { workerModifyData, workerSearchData, workerView, workerModify } from '../../stores/WorkerStore';
 
 	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
 
 	import close_icon from '$lib/assets/close.svg';
 
-	import { goto } from '$app/navigation';
+	let errorMessage = '';
 
 	import { modifyToggle, Next, Previous } from '../Shared/EmployeeFunction.svelte';
 	// import ModifyTextData from './ModifyTextData.svelte';
@@ -24,7 +24,6 @@
 				},
 				body: JSON.stringify(worker)
 			});
-			console.log(response.status);
 			if (response.status === 200) {
 				const another_response = await fetch(`${PUBLIC_SERVER_API_KEY}/api/employeeModify`, {
 					method: 'POST',
@@ -35,11 +34,14 @@
 				});
 				const data = await another_response.json();
 				workerSearchData.update(() => [data]);
+
 				workerView.update((currentValue) => !currentValue);
 				workerModify.update((currentValue) => !currentValue);
 			}
 		} else {
 			// For development
+			errorMessage = '';
+
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeModifyRequest`, {
 				method: 'PUT',
 				headers: {
@@ -56,11 +58,40 @@
 					},
 					body: JSON.stringify({ idNo: worker._id })
 				});
+
 				const data = await another_response.json();
 				workerSearchData.update(() => [data]);
+
+				message.update(() => 'success');
+				messageText.update(() => 'Worker successfully modified');
 				workerView.update((currentValue) => !currentValue);
 				workerModify.update((currentValue) => !currentValue);
+
+				const timer = setTimeout(() => {
+					message.update(() => '');
+					messageText.update(() => '');
+				}, 5000);
+
+				// Cleanup the timer if the component is destroyed before the timer completes
+				return () => clearTimeout(timer);
 			}
+			else if (response.status === 500) {
+                // Handle duplicate errors
+                errorMessage = 'An error occurred while modifying the worker';
+				
+				message.update(() => 'error');
+				messageText.update(() => errorMessage);
+				workerView.update((currentValue) => !currentValue);
+				workerModify.update((currentValue) => !currentValue);
+
+				const timer = setTimeout(() => {
+					message.update(() => '');
+					messageText.update(() => '');
+				}, 5000);
+
+				// Cleanup the timer if the component is destroyed before the timer completes
+				return () => clearTimeout(timer);
+            }
 		}
 	};
 </script>

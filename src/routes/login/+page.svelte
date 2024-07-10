@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { ActionData } from './$types';
+	/** @type {import('./$types').PageData} */
+	export let data;
 
-	export let form: ActionData;
-
-	// Check the form value and redirect accordingly
+	/** @type {import('./$types').ActionData} */
+	export let form;
 </script>
 
 <div class="min-h-screen flex items-center justify-center bg-gray-100">
@@ -18,6 +18,13 @@
 				<label for="password" class="block text-sm font-medium text-gray-700">Password</label>
 				<input type="password" name="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#536DFE] focus:border-[#536DFE] sm:text-sm" required />
 			</div>
+			
+			{#if form?.error}
+				<div class="block text-sm font-medium text-[#F50057] cursor-default">
+					{data.errMsg}
+				</div>
+			{/if}
+
 			<div>
 				<button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#536DFE] hover:bg-[#536dfeef] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"> Log In </button>
 			</div>

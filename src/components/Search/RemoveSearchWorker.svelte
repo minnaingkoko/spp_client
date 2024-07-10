@@ -1,8 +1,11 @@
 <script lang="ts">
 	import close_icon from '$lib/assets/close.svg';
+	import { message, messageText } from '../../stores/MainStores';
 	import { workerSearchData, workerView, workerRemove, workerRemove_id } from '../../stores/WorkerStore';
 
 	import { PUBLIC_LOCAL_API_KEY, PUBLIC_SERVER_API_KEY } from '$env/static/public';
+
+	let errorMessage = '';
 
 	const deleteToggle = (value: any) => {
 		workerRemove_id.update(() => value);
@@ -28,6 +31,8 @@
 			}
 		} else {
 			// For development
+			errorMessage = '';
+
 			const response = await fetch(`${PUBLIC_LOCAL_API_KEY}/api/employeeDelete`, {
 				method: 'DELETE',
 				headers: {
@@ -39,7 +44,35 @@
 				workerSearchData.update(() => []);
 				workerView.update((currentValue) => !currentValue);
 				workerRemove.update((currentValue) => !currentValue);
+
+				message.update(() => 'success');
+				messageText.update(() => 'Worker Successfully deleted');
+
+				const timer = setTimeout(() => {
+					message.update(() => '');
+				messageText.update(() => '');
+				}, 5000);
+
+				// Cleanup the timer if the component is destroyed before the timer completes
+				return () => clearTimeout(timer);
 			}
+			else if (response.status === 500) {
+                // Handle duplicate errors
+                errorMessage = 'An error occurred while deleting the worker';
+				
+				message.update(() => 'error');
+				messageText.update(() => errorMessage);
+				workerView.update((currentValue) => !currentValue);
+				workerRemove.update((currentValue) => !currentValue);
+
+				const timer = setTimeout(() => {
+					message.update(() => '');
+					messageText.update(() => '');
+				}, 5000);
+
+				// Cleanup the timer if the component is destroyed before the timer completes
+				return () => clearTimeout(timer);
+            }
 		}
 	};
 </script>
