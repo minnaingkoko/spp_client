@@ -42,7 +42,7 @@ async function getUserByUsername(username) {
 	const users = [
 		{
 			username: SECRET_USERNAME,
-			password: `$2a$12$bu.${SECRET_PASSWORD}` // This should be a bcrypt hashed password
+			password: `$2a$12$${SECRET_PASSWORD}` // This should be a bcrypt hashed password
 		}
 	];
 
